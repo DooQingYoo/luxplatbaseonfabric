@@ -1,0 +1,111 @@
+OrdererOrgs:
+  - Name: Brand
+    Domain: Brand
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: Brand
+    Domain: Brand
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: RawHide1
+    Domain: RawHide1
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: RawHide2
+    Domain: RawHide2
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Leather1
+    Domain: Leather1
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Leather2
+    Domain: Leather2
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Factory1
+    Domain: Factory1
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Factory2
+    Domain: Factory2
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Agent1
+    Domain: Agent1
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Agent2
+    Domain: Agent2
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Retailer1
+    Domain: Retailer1
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Retailer2
+    Domain: Retailer2
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Retailer3
+    Domain: Retailer3
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1
+  - Name: Retailer4
+    Domain: Retailer4
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      Start: 0
+    Users:
+      Count: 1

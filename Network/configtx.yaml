@@ -1,0 +1,198 @@
+Organizations:
+  - &OrdererOrg
+    Name: OrdererOrg
+    ID: OrdererMSP
+    MSPDir: crypto-config/ordererOrganizations/Brand/msp
+  - &Brand
+    Name: Brand
+    ID: BrandMSP
+    MSPDir: crypto-config/peerOrganizations/Brand/msp
+    AnchorPeers:
+      - Host: peer0.Brand
+        Port: 7051
+  - &RawHide1
+    Name: RawHide1
+    ID: RawHide1MSP
+    MSPDir: crypto-config/peerOrganizations/RawHide1/msp
+    AnchorPeers:
+      - Host: peer1.RawHide1
+        Port: 9051
+  - &RawHide2
+    Name: RawHide2
+    ID: RawHide2MSP
+    MSPDir: crypto-config/peerOrganizations/RawHide2/msp
+    AnchorPeers:
+      - Host: peer1.RawHide2
+        Port: 11051
+  - &Leather1
+    Name: Leather1
+    ID: Leather1MSP
+    MSPDir: crypto-config/peerOrganizations/Leather1/msp
+    AnchorPeers:
+      - Host: peer1.Leather1
+        Port: 13051
+  - &Leather2
+    Name: Leather2
+    ID: Leather2MSP
+    MSPDir: crypto-config/peerOrganizations/Leather2/msp
+    AnchorPeers:
+      - Host: peer1.Leather2
+        Port: 15051
+  - &Factory1
+    Name: Factory1
+    ID: Factory1MSP
+    MSPDir: crypto-config/peerOrganizations/Factory1/msp
+    AnchorPeers:
+      - Host: peer1.Facroty1
+        Port: 17051
+  - &Factory2
+    Name: Factory2
+    ID: Factory2MSP
+    MSPDir: crypto-config/peerOrganizations/Factory2/msp
+    AnchorPeers:
+      - Host: peer1.Facroty2
+        Port: 19051
+  - &Agent1
+    Name: Agent1
+    ID: Agent1MSP
+    MSPDir: crypto-config/peerOrganizations/Agent1/msp
+    AnchorPeers:
+      - Host: peer0.Agent1
+        Port: 20051
+  - &Agent2
+    Name: Agent2
+    ID: Agent2MSP
+    MSPDir: crypto-config/peerOrganizations/Agent2/msp
+    AnchorPeers:
+      - Host: peer0.Agent2
+        Port: 21051
+  - &Retailer1
+    Name: Retailer1
+    ID: Retailer1MSP
+    MSPDir: crypto-config/peerOrganizations/Retailer1/msp
+    AnchorPeers:
+      - Host: peer0.Retailer1
+        Port: 22051
+  - &Retailer2
+    Name: Retailer2
+    ID: Retailer2MSP
+    MSPDir: crypto-config/peerOrganizations/Retailer2/msp
+    AnchorPeers:
+      - Host: peer0.Retailer2
+        Port: 23051
+  - &Retailer3
+    Name: Retailer3
+    ID: Retailer3MSP
+    MSPDir: crypto-config/peerOrganizations/Retailer3/msp
+    AnchorPeers:
+      - Host: peer0.Retailer3
+        Port: 24051
+  - &Retailer4
+    Name: Retailer4
+    ID: Retailer4MSP
+    MSPDir: crypto-config/peerOrganizations/Retailer4/msp
+    AnchorPeers:
+      - Host: peer0.Retailer4
+        Port: 25051
+
+Capabilities:
+  Global: &ChannelCapabilities
+    V1_3: true
+
+  Orderer: &OrdererCapabilities
+    V1_1: true
+
+  Aplication: &ApplicationCapabilities
+    V1_3: true
+
+Application: &ApplicationDefaults
+  Organizations:
+
+Orderer: &OrdererDefault
+  OrdererType: solo
+  Addresses:
+    - orderer.Brand:7050
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+
+Profiles:
+  DefaultGenesis:
+    Capabilities:
+      <<: *ChannelCapabilities
+    Orderer:
+      <<: *OrdererDefault
+      Organizations:
+        - *OrdererOrg
+      Capabilities:
+        <<: *OrdererCapabilities
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *Brand
+          - *RawHide1
+          - *RawHide2
+          - *Leather1
+          - *Leather2
+          - *Factory1
+          - *Factory2
+          - *Agent1
+          - *Agent2
+          - *Retailer1
+          - *Retailer2
+          - *Retailer3
+          - *Retailer4
+  UpstreamChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Brand
+        - *RawHide1
+        - *RawHide2
+        - *Leather1
+        - *Leather2
+      Capabilities:
+        <<: *ApplicationCapabilities
+  DownstreamChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Brand
+        - *Leather1
+        - *Leather2
+        - *Factory1
+        - *Factory2
+      Capabilities:
+        <<: *ApplicationCapabilities
+  MarketChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Brand
+        - *Factory1
+        - *Factory2
+        - *Agent1
+        - *Agent2
+        - *Retailer1
+        - *Retailer2
+        - *Retailer3
+        - *Retailer4
+      Capabilities:
+          <<: *ApplicationCapabilities
+  QueryChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Brand
+        - *Retailer1
+        - *Retailer2
+        - *Retailer3
+        - *Retailer4
+      Capabilities:
+        <<: *ApplicationCapabilities

@@ -1,0 +1,516 @@
+version: '2'
+networks:
+  bcnet:
+
+services:
+
+  orderer.Brand:
+    container_name: orderer.Brand
+    image: hyperledger/fabric-orderer
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=false
+      # 不使用TLS，但是保留以便未来需要用
+#      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+#      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+#      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/Brand/orderers/orderer.Brand/msp:/var/hyperledger/orderer/msp
+      - ./fabricdata/orderer:/var/hyperledger/production/
+#      - ./crypto-config/ordererOrganizations/Brand/orderers/orderer.Brand/tls/:/var/hyperledger/orderer/tls
+    ports:
+      - 7050:7050
+    networks:
+      - bcnet
+
+  peer0.Brand:
+    container_name: peer0.Brand
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Brand
+      - CORE_PEER_ADDRESS=peer0.Brand:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Brand:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Brand:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Brand:7051
+      - CORE_PEER_LOCALMSPID=BrandMSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Brand/peers/peer0.Brand/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Brand/p0:/var/hyperledger/production/
+#      - ./crypto-config/peerOrganizations/Brand/peers/peer0.Brand/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 7051:7051
+    networks:
+      - bcnet
+        
+  peer0.RawHide1:
+    container_name: peer0.RawHide1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.RawHide1
+      - CORE_PEER_ADDRESS=peer0.RawHide1:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.RawHide1:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.RawHide1:9051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.RawHide1:8051
+      - CORE_PEER_LOCALMSPID=RawHide1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/RawHide1/peers/peer0.RawHide1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/RawHide1/p0:/var/hyperledger/production/
+#      - ./crypto-config/peerOrganizations/RawHide1/peers/peer0.RawHide1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 8051:8051
+    networks:
+      - bcnet
+        
+  peer1.RawHide1:
+    container_name: peer1.RawHide1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.RawHide1
+      - CORE_PEER_ADDRESS=peer1.RawHide1:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.RawHide1:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.RawHide1:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.RawHide1:9051
+      - CORE_PEER_LOCALMSPID=RawHide1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/RawHide1/peers/peer1.RawHide1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/RawHide1/p1:/var/hyperledger/production/
+#      - ./crypto-config/peerOrganizations/RawHide1/peers/peer1.RawHide1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 9051:9051
+    networks:
+      - bcnet        
+        
+  peer0.RawHide2:
+    container_name: peer0.RawHide2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.RawHide2
+      - CORE_PEER_ADDRESS=peer0.RawHide2:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.RawHide2:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.RawHide2:11051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.RawHide2:10051
+      - CORE_PEER_LOCALMSPID=RawHide2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/RawHide2/peers/peer0.RawHide2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/RawHide2/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/RawHide2/peers/peer0.RawHide2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 10051:10051
+    networks:
+      - bcnet      
+        
+  peer1.RawHide2:
+    container_name: peer1.RawHide2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.RawHide2
+      - CORE_PEER_ADDRESS=peer1.RawHide2:11051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.RawHide2:11052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.RawHide2:10051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.RawHide2:11051
+      - CORE_PEER_LOCALMSPID=RawHide2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/RawHide2/peers/peer1.RawHide2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/RawHide2/p1:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/RawHide2/peers/peer1.RawHide2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 11051:11051
+    networks:
+      - bcnet
+        
+  peer0.Leather1:
+    container_name: peer0.Leather1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Leather1
+      - CORE_PEER_ADDRESS=peer0.Leather1:12051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Leather1:12052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.Leather1:13051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Leather1:12051
+      - CORE_PEER_LOCALMSPID=Leather1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Leather1/peers/peer0.Leather1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Leather1/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Leather1/peers/peer0.Leather1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 12051:12051
+    networks:
+      - bcnet
+        
+  peer1.Leather1:
+    container_name: peer1.Leather1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.Leather1
+      - CORE_PEER_ADDRESS=peer1.Leather1:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.Leather1:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Leather1:12051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.Leather1:13051
+      - CORE_PEER_LOCALMSPID=Leather1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Leather1/peers/peer1.Leather1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Leather1/p1:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Leather1/peers/peer1.Leather1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 13051:13051
+    networks:
+      - bcnet
+        
+  peer0.Leather2:
+    container_name: peer0.Leather2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Leather2
+      - CORE_PEER_ADDRESS=peer0.Leather2:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Leather2:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.Leather2:15051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Leather2:14051
+      - CORE_PEER_LOCALMSPID=Leather2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Leather2/peers/peer0.Leather2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Leather2/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Leather2/peers/peer0.Leather2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 14051:14051
+    networks:
+      - bcnet
+        
+  peer1.Leather2:
+    container_name: peer1.Leather2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.Leather2
+      - CORE_PEER_ADDRESS=peer1.Leather2:15051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:15051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.Leather2:15052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:15052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Leather2:14051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.Leather2:15051
+      - CORE_PEER_LOCALMSPID=Leather2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Leather2/peers/peer1.Leather2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Leather2/p1:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Leather2/peers/peer1.Leather2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 15051:15051
+    networks:
+      - bcnet
+        
+  peer0.Factory1:
+    container_name: peer0.Factory1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Factory1
+      - CORE_PEER_ADDRESS=peer0.Factory1:16051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:16051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Factory1:16052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:16052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.Factory1:17051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Factory1:16051
+      - CORE_PEER_LOCALMSPID=Factory1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Factory1/peers/peer0.Factory1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Factory1/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Factory1/peers/peer0.Factory1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 16051:16051
+    networks:
+      - bcnet
+        
+  peer1.Factory1:
+    container_name: peer1.Factory1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.Factory1
+      - CORE_PEER_ADDRESS=peer1.Factory1:17051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:17051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.Factory1:17052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:17052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Factory1:16051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.Factory1:17051
+      - CORE_PEER_LOCALMSPID=Factory1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Factory1/peers/peer1.Factory1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Factory1/p1:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Factory1/peers/peer1.Factory1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 17051:17051
+    networks:
+      - bcnet
+        
+  peer0.Factory2:
+    container_name: peer0.Factory2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Factory2
+      - CORE_PEER_ADDRESS=peer0.Factory2:18051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:18051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Factory2:18052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:18052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.Factory2:19051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Factory2:18051
+      - CORE_PEER_LOCALMSPID=Factory2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Factory2/peers/peer0.Factory2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Factory2/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Factory2/peers/peer0.Factory2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 18051:18051
+    networks:
+      - bcnet
+        
+  peer1.Factory2:
+    container_name: peer1.Factory2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer1.Factory2
+      - CORE_PEER_ADDRESS=peer1.Factory2:19051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:19051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.Factory2:19052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:19052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Factory2:18051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.Factory2:19051
+      - CORE_PEER_LOCALMSPID=Factory2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Factory2/peers/peer1.Factory2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Factory2/p1:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Factory2/peers/peer1.Factory2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 19051:19051
+    networks:
+      - bcnet
+        
+  peer0.Agent1:
+    container_name: peer0.Agent1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Agent1
+      - CORE_PEER_ADDRESS=peer0.Agent1:20051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:20051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Agent1:20052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:20052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Agent1:20051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Agent1:20051
+      - CORE_PEER_LOCALMSPID=Agent1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Agent1/peers/peer0.Agent1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Agent1/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Agent1/peers/peer0.Agent1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 20051:20051
+    networks:
+      - bcnet
+        
+  peer0.Agent2:
+    container_name: peer0.Agent2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Agent2
+      - CORE_PEER_ADDRESS=peer0.Agent2:21051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:21051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Agent2:21052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:21052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Agent2:21051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Agent2:21051
+      - CORE_PEER_LOCALMSPID=Agent2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Agent2/peers/peer0.Agent2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Agent2/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Agent2/peers/peer0.Agent2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 21051:21051
+    networks:
+      - bcnet
+        
+  peer0.Retailer1:
+    container_name: peer0.Retailer1
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Retailer1
+      - CORE_PEER_ADDRESS=peer0.Retailer1:22051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:22051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer1:22052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:22052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer1:22051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer1:22051
+      - CORE_PEER_LOCALMSPID=Retailer1MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Retailer1/peers/peer0.Retailer1/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Retailer1/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Retailer1/peers/peer0.Retailer1/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 22051:22051
+    networks:
+      - bcnet
+        
+  peer0.Retailer2:
+    container_name: peer0.Retailer2
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Retailer2
+      - CORE_PEER_ADDRESS=peer0.Retailer2:23051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:23051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer2:23052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:23052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer2:23051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer2:23051
+      - CORE_PEER_LOCALMSPID=Retailer2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Retailer2/peers/peer0.Retailer2/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Retailer2/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Retailer2/peers/peer0.Retailer2/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 23051:23051
+    networks:
+      - bcnet
+        
+  peer0.Retailer3:
+    container_name: peer0.Retailer3
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Retailer3
+      - CORE_PEER_ADDRESS=peer0.Retailer3:24051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:24051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer3:24052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:24052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer3:24051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer3:24051
+      - CORE_PEER_LOCALMSPID=Retailer3MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Retailer3/peers/peer0.Retailer3/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Retailer3/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Retailer3/peers/peer0.Retailer3/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 24051:24051
+    networks:
+      - bcnet
+        
+  peer0.Retailer4:
+    container_name: peer0.Retailer4
+    extends:
+      file: peer-base.yaml
+      service: all-peers
+    environment:
+      - CORE_PEER_ID=peer0.Retailer4
+      - CORE_PEER_ADDRESS=peer0.Retailer4:25051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:25051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer4:25052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:25052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer4:25051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer4:25051
+      - CORE_PEER_LOCALMSPID=Retailer4MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/Retailer4/peers/peer0.Retailer4/msp:/etc/hyperledger/fabric/msp
+      - ./fabricdata/Retailer4/p0:/var/hyperledger/production/
+    #      - ./crypto-config/peerOrganizations/Retailer4/peers/peer0.Retailer4/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 25051:25051
+    networks:
+      - bcnet
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.Brand:7051
+      - CORE_PEER_LOCALMSPID=BrandMSP
+      - CORE_PEER_TLS_ENABLED=false
+#      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DooTest/peers/peer0.DooTest/tls/server.crt
+#      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DooTest/peers/peer0.DooTest/tls/server.key
+#      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/DooTest/peers/peer0.DooTest/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/Brand/users/Admin@Brand/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run:/host/var/run/
+      - ./cli.sh:/opt/gopath/src/github.com/hyperledger/fabric/peer/cli.sh
+      - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - ./chaincode:/opt/gopath/src/chaincode
+      - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      - bcnet
