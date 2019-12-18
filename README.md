@@ -1,7 +1,10 @@
 # 基于fabric区块链的奢侈品供应链平台
 2020届曲阜师范大学毕业设计  
 基于fabric 1.4.1  
-## 启动
+## 区块链
+NetWork文件夹
+### 启动
+NetWork文件夹
 ```bash
 # 启动容器
 ./bcnet.sh up
@@ -14,7 +17,9 @@
 # 实例化链码
 ./bcnet.sh instantiate
 ```
-## 关闭
+### 关闭
 ```bash
 ./bcnet.sh down
 ```
+## web应用
+bclux文件夹
