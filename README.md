@@ -21,5 +21,5 @@ NetWork文件夹
 ```bash
 ./bcnet.sh down
 ```
-## web应用
-bclux文件夹
+## web
+bclux文件夹，spring boot应用
