@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用户输入查询码查询真伪">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>您好，[[${session.user.getName()}]]</title>
+</head>
+<body style="height: 100%">
+<div th:replace="common::topbar(username=${session.user.getName()})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row">
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <form class="form-inline" method="post" th:action="@{/retail}" style="padding-top: 20%;">
+                <p>销售商品：</p>
+                <div class="form-group">
+                    <label for="retailer">零售商编号</label>
+                    <input type="text" class="form-control input-lg" id="retailer" name="retailer"
+                           th:value="${session.user.getId()}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="serialNum">商品序列号</label>
+                    <input type="text" class="form-control input-lg" id="serialNum" name="serialNum"
+                           placeholder="请输入商品批次序列号">
+                </div>
+                <button type="submit" class="btn btn-success btn-lg">提交</button>
+            </form>
+            <form class="form-inline" method="post" th:action="@{/commodity}" style="padding-top: 10%">
+                <p>查询商品：</p>
+                <div class="form-group">
+                    <label for="querySerialNum">商品序列号</label>
+                    <input type="text" class="form-control input-lg" id="querySerialNum" name="serialNum">
+                </div>
+                <button type="submit" class="btn btn-success btn-lg">查询</button>
+            </form>
+        </div>
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    </div>
+</div>
+</body>
+</html>

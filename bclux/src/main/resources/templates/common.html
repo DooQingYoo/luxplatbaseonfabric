@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Common</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-static-top"
+     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0; background-color: #12253A"
+     th:fragment="topbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}" style="font-size: 22px">DooQY</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/}">品牌故事</a></li>
+                <li><a th:href="@{/}">产品</a></li>
+                <li><a th:href="@{/}">官方商城</a></li>
+                <li><a th:href="@{/}">真伪查询</a></li>
+                <li><a th:href="@{/}">FAQ</a></li>
+            </ul>
+            <a th:if="${username}==null" th:href="@{/login}" class="navbar-right btn btn-primary navbar-btn">登录</a>
+            <p th:if="${username!=null}" class="navbar-right navbar-text" th:text="${username}">用户名</p>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

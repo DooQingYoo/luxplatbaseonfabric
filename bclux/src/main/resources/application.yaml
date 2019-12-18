@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:mysql://10.185.41.224:3306/bclux
+    username: root
+    password: 124816
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    date-format: yyyy.MM.dd HH:mm:ss
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  thymeleaf:
+    cache: false
+fabric:
+  config:
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIICCjCCAbCgAwIBAgIRAPZHK3wqA8fpG3G9mSVICycwCgYIKoZIzj0EAwIwXTEL
+      MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG
+      cmFuY2lzY28xDjAMBgNVBAoTBUJyYW5kMREwDwYDVQQDEwhjYS5CcmFuZDAeFw0x
+      OTEwMTgwMTM1MDBaFw0yOTEwMTUwMTM1MDBaMGExCzAJBgNVBAYTAlVTMRMwEQYD
+      VQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMQ8wDQYDVQQL
+      EwZjbGllbnQxFDASBgNVBAMMC1VzZXIxQEJyYW5kMFkwEwYHKoZIzj0CAQYIKoZI
+      zj0DAQcDQgAEWsOxzXLIfQNHYJ15Y1pRrXItURzE2LwOB61RepOpiY2QLG5+qfeY
+      2U+dPc4hNgnDY4gCczaV74RottcotThS4qNNMEswDgYDVR0PAQH/BAQDAgeAMAwG
+      A1UdEwEB/wQCMAAwKwYDVR0jBCQwIoAgHF9QAntri3W5v686jls+KUZ87CEG/S18
+      we1dxPvJqBYwCgYIKoZIzj0EAwIDSAAwRQIhAISFv+3u13gYL4xkfkKvurBPbVHP
+      SeoAwzABXcFfelmYAiBxV//HnU/XZMOPj6SzPfJJ24wR1MXZ+KV9n11CDEXK8A==
+      -----END CERTIFICATE-----
+    key: MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgvtOQT1mmouo11g72otaoNFcYPDZboTdz24tNA9Vcb7GhRANCAARaw7HNcsh9A0dgnXljWlGtci1RHMTYvA4HrVF6k6mJjZAsbn6p95jZT509ziE2CcNjiAJzNpXvhGi21yi1OFLi
+    ipAddress: grpc://10.185.41.224

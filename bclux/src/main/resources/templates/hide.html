@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用户输入查询码查询真伪">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>您好，[[${session.user.getName()}]]</title>
+    <style>
+        label {
+            color: blanchedalmond;
+            font-size: 24px
+        }
+
+        p {
+            color: antiquewhite;
+            font-size: 18px
+        }
+    </style>
+</head>
+<body style="height: 100%">
+<div th:replace="common::topbar(username=${session.user.name})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row">
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <form class="form-inline" method="post" th:action="@{/hide}" style="padding-top: 30%;">
+                <div class="form-group">
+                    <label for="hideProducer">厂家编号</label>
+                    <input type="text" class="form-control" id="hideProducer" name="hideProducer"
+                           th:value="${session.user.id}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="animalType">生皮种类</label>
+                    <select class="form-control" id="animalType" name="animalType">
+                        <option value="0">牛皮</option>
+                        <option value="1">羊皮</option>
+                        <option value="2">猪皮</option>
+                        <option value="3">鹿皮</option>
+                        <option value="4">鱼皮</option>
+                        <option value="5">蛇皮</option>
+                        <option value="6">鸵鸟皮</option>
+                        <option value="7">鳄鱼皮</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reserveType">生皮存储</label>
+                    <select class="form-control" id="reserveType" name="reserveType">
+                        <option value="0">鲜皮</option>
+                        <option value="1">冻鲜皮</option>
+                        <option value="2">干皮</option>
+                        <option value="3">冻干皮</option>
+                        <option value="4">干腌皮</option>
+                        <option value="5">湿腌皮</option>
+                        <option value="6">浸酸皮</option>
+                        <option value="7">照射皮</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">提交</button>
+            </form>
+        </div>
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    </div>
+</div>
+</body>
+</html>
