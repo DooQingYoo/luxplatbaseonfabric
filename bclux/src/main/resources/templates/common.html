@@ -21,8 +21,32 @@
                 <li><a th:href="@{/}">真伪查询</a></li>
                 <li><a th:href="@{/}">FAQ</a></li>
             </ul>
-            <a th:if="${username}==null" th:href="@{/login}" class="navbar-right btn btn-primary navbar-btn">登录</a>
+            <a th:if="${username==null}" th:href="@{/login}" class="navbar-right btn btn-primary navbar-btn">登录</a>
             <p th:if="${username!=null}" class="navbar-right navbar-text" th:text="${username}">用户名</p>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-inverse navbar-static-top"
+     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0; background-color: #12253A"
+     th:fragment="Adtopbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}" style="font-size: 22px">DooQY</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/allmembers}">所有成员</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">成员分类 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/allhide}">生皮厂商</a></li>
+                        <li><a th:href="@{/allleather}">皮革厂商</a></li>
+                        <li><a th:href="@{/allfactory}">加工工厂</a></li>
+                        <li><a th:href="@{/allretailer}">零售商</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a th:href="@{/main}" class="navbar-right btn btn-primary navbar-btn">消息 <span th:if="${messages}!=0" class="badge" th:text="${massages}">10</span></a>
         </div>
     </div>
 </nav>

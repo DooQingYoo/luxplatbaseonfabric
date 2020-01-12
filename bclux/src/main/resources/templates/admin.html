@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用户输入查询码查询真伪">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>您好，管理员</title>
+</head>
+<body style="height: 100%">
+<div th:replace="common::Adtopbar(massages=${session.message})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <table lass="table" style="margin-top: 10%; width: 100%">
+                <tr th:if="${messages.size()>0}" th:each="message:${messages}">
+                    <td>
+                        <a th:href="@{'/message/'+${message.id}}" class="btn btn-danger btn-block" style="font-size: 24px">
+                            在[[${#dates.format(message.time)}]]有一条[[${message.messageType.name()}]]类型的可疑查询
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+    </div>
+</div>
+</body>
+</html>

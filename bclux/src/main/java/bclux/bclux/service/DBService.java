@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class DBService {
@@ -18,9 +19,10 @@ public class DBService {
     private final HideProducerRepository hideProducer;
     private final LeatherProducerRepository leatherProducer;
     private final RetailerRepository retailer;
+    private final MessageRepository message;
 
     @Autowired
-    public DBService(SoldCommodityRepository soldCommodity, CommodityRepository commodity, LeatherRepository leather, HideRepository hide, FactoryRepository factory, HideProducerRepository hideProducer, LeatherProducerRepository leatherProducer, RetailerRepository retailer) {
+    public DBService(SoldCommodityRepository soldCommodity, CommodityRepository commodity, LeatherRepository leather, HideRepository hide, FactoryRepository factory, HideProducerRepository hideProducer, LeatherProducerRepository leatherProducer, RetailerRepository retailer, MessageRepository message) {
         this.soldCommodity = soldCommodity;
         this.commodity = commodity;
         this.leather = leather;
@@ -29,6 +31,7 @@ public class DBService {
         this.hideProducer = hideProducer;
         this.leatherProducer = leatherProducer;
         this.retailer = retailer;
+        this.message = message;
     }
 
     public boolean queryExist(String serialNum) {
@@ -99,7 +102,7 @@ public class DBService {
         hide.save(hide1);
     }
 
-    Retailer getRetailer(Integer id) {
+    public Retailer getRetailer(Integer id) {
         return retailer.getOne(id);
     }
 
@@ -107,11 +110,79 @@ public class DBService {
         return factory.getOne(id);
     }
 
-    LeatherProducer getLeatherProducer(Integer id) {
+    public LeatherProducer getLeatherProducer(Integer id) {
         return leatherProducer.getOne(id);
     }
 
-    HideProducer getHideProducer(Integer id) {
+    public HideProducer getHideProducer(Integer id) {
         return hideProducer.getOne(id);
+    }
+
+    public List<HideProducer> getAllHide() {
+        return hideProducer.findAll();
+    }
+
+    public List<LeatherProducer> getAllLeather() {
+        return leatherProducer.findAll();
+    }
+
+    public List<Factory> getAllFactory() {
+        return factory.findAll();
+    }
+
+    public List<Retailer> getAllRetailer() {
+        return retailer.findAll();
+    }
+
+    public void saveHideProducer(HideProducer hp) {
+        hideProducer.save(hp);
+    }
+
+    public void saveLeatherProducer(LeatherProducer lp) {
+        leatherProducer.save(lp);
+    }
+
+    public void saveFactory(Factory ft) {
+        factory.save(ft);
+    }
+
+    public void saveRetailer(Retailer rt) {
+        retailer.save(rt);
+    }
+
+    public int nextHideProducerId() {
+        int count = (int) hideProducer.count();
+        return ++count;
+    }
+
+    public int nextLeatherProducerId() {
+        int count = (int) hideProducer.count();
+        return ++count;
+    }
+
+    public int nextFactoryId() {
+        int count = (int) factory.count();
+        return ++count;
+    }
+
+    public int nextRetailerId() {
+        int count = (int) retailer.count();
+        return ++count;
+    }
+
+    public int getMessageCount() {
+        return message.countAllByNewMSGTrue();
+    }
+
+    public List<Message> getMessages() {
+        return message.getAllByNewMSGTrue();
+    }
+
+    public Message getMessage(Integer id) {
+        return message.getOne(id);
+    }
+
+    public void saveMessage(Message mg) {
+        message.save(mg);
     }
 }

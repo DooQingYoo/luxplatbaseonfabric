@@ -5,10 +5,7 @@ import bclux.bclux.BCDao.BCHide;
 import bclux.bclux.BCDao.BCLeather;
 import bclux.bclux.BCDao.BCSoldCommodity;
 import bclux.bclux.BCRepository.FabricSDK;
-import bclux.bclux.DBDao.Commodity;
-import bclux.bclux.DBDao.Hide;
-import bclux.bclux.DBDao.Leather;
-import bclux.bclux.DBDao.SoldCommodity;
+import bclux.bclux.DBDao.*;
 import bclux.bclux.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +33,12 @@ public class BCService {
         soldCommodity.setSerialNum(serialNum);
         if (bcSoldCommodity.getQueried()) {
             soldCommodity.setQueryTime(1);
+            Message message = new Message();
+            message.setNewMSG(true);
+            message.setSerialNum(serialNum);
+            message.setMessageType(MessageType.DataBaseAbsent);
+            message.setTime(new Date());
+            dbService.saveMessage(message);
         } else {
             soldCommodity.setQueryTime(0);
         }
@@ -73,7 +76,7 @@ public class BCService {
     }
 
 
-    private Leather queryLeather(String serialNum) {
+    public Leather queryLeather(String serialNum) {
         BCLeather bcLeather = fabricSDK.queryLeather(serialNum);
         if (bcLeather == null) {
             return null;
@@ -93,7 +96,7 @@ public class BCService {
         return leather;
     }
 
-    private Hide queryHide(String serialNum) {
+    public Hide queryHide(String serialNum) {
         BCHide bcHide = fabricSDK.queryHide(serialNum);
         if (bcHide == null) {
             return null;
@@ -109,14 +112,14 @@ public class BCService {
     }
 
     public String sell(String id, String commoditySerialNum) {
-        if (commoditySerialNum.length()!=43) {
+        if (commoditySerialNum.length() != 43) {
             return null;
         }
-        String serialNum = fabricSDK.querychannelSell(id, commoditySerialNum);
         boolean ok = fabricSDK.marketchannelSell(commoditySerialNum);
         if (!ok) {
             return null;
         }
+        String serialNum = fabricSDK.querychannelSell(id, commoditySerialNum);
         return serialNum;
     }
 
@@ -125,7 +128,7 @@ public class BCService {
     }
 
     public String produceCommodity(String factory, String totalCount, String leatherNum) {
-        return fabricSDK.produceCommodity(factory,totalCount,leatherNum);
+        return fabricSDK.produceCommodity(factory, totalCount, leatherNum);
     }
 
     public String produceLeather(String tanning, String layer, String producer, String hideSerial) {

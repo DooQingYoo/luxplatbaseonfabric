@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用户输入查询码查询真伪">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>您好，管理员</title>
+</head>
+<body style="height: 100%">
+<div th:replace="common::Adtopbar(massages=${session.message})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <form class="form-inline" method="post" th:action="@{'/modify/'+${type}}" style="margin-top: 20%;">
+                <div class="form-group">
+                    <label for="id" class="sr-only">#</label>
+                    <input type="text" class="form-control input-lg" id="id" name="id" th:value="${member.id}" style="width: 3em" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="sr-only">名称</label>
+                    <input type="text" class="form-control input-lg" id="name" name="name" th:value="${member.name!=null}?${member.name}:'请输入工厂名'">
+                </div>
+                <div class="form-group">
+                    <label for="address" class="sr-only">地址</label>
+                    <input type="text" class="form-control input-lg" id="address" name="address" style="width: 25em" th:value="${member.address!=null}?${member.address}:'请输入地址'">
+                </div>
+                <div class="form-group">
+                    <label for="contact" class="sr-only">连系方式</label>
+                    <input type="text" class="form-control input-lg" id="contact" name="contact" style="width: 8em" th:value="${member.contact!=null}?${member.contact}:'请输入连系方式'">
+                </div>
+                <div class="form-group">
+                    <label for="page" class="sr-only">主页</label>
+                    <input type="text" class="form-control input-lg" id="page" name="page" th:value="${member.page!=null}?${member.page}:'请输入网站地址'">
+                </div>
+                <div class="form-group">
+                    <label for="legal" class="sr-only">法人</label>
+                    <input type="text" class="form-control input-lg" id="legal" name="legal" style="width: 6em" th:value="${member.legal!=null}?${member.legal}:'请输入法人'">
+                </div>
+                <div class="form-group">
+                    <label for="member" class="sr-only">成员身份</label>
+                    <select id="member" class="form-control input-lg" name="memb">
+                        <option th:selected="${member.memb}" value="true">是</option>
+                        <option th:selected="${!member.memb}" value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">密码</label>
+                    <input type="text" class="form-control input-lg" id="password" name="password" style="width: 6em" th:value="${member.password!=null}?${member.password}:'请输入密码'">
+                </div>
+                <button type="submit" class="btn btn-info btn-lg">提交</button>
+            </form>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    </div>
+</div>
+</body>
+</html>

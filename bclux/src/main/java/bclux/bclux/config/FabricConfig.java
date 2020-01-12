@@ -65,15 +65,17 @@ public class FabricConfig {
         client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
         client.setUserContext(user());
 
+        String ordererAddress = "grpc://" + ipAddress + ":7050";
+        String peerAddress = "grpc://" + ipAddress + ":7051";
         // 设置通道
-        Orderer orderer1 = client.newOrderer("orderer.Brand", "grpc://10.185.41.224:7050");
-        Orderer orderer2 = client.newOrderer("orderer.Brand", "grpc://10.185.41.224:7050");
-        Orderer orderer3 = client.newOrderer("orderer.Brand", "grpc://10.185.41.224:7050");
-        Orderer orderer4 = client.newOrderer("orderer.Brand", "grpc://10.185.41.224:7050");
-        Peer peer1 = client.newPeer("peer0.Brand", "grpc://10.185.41.224:7051");
-        Peer peer2 = client.newPeer("peer0.Brand", "grpc://10.185.41.224:7051");
-        Peer peer3 = client.newPeer("peer0.Brand", "grpc://10.185.41.224:7051");
-        Peer peer4 = client.newPeer("peer0.Brand", "grpc://10.185.41.224:7051");
+        Orderer orderer1 = client.newOrderer("orderer.Brand", ordererAddress);
+        Orderer orderer2 = client.newOrderer("orderer.Brand", ordererAddress);
+        Orderer orderer3 = client.newOrderer("orderer.Brand", ordererAddress);
+        Orderer orderer4 = client.newOrderer("orderer.Brand", ordererAddress);
+        Peer peer1 = client.newPeer("peer0.Brand", peerAddress);
+        Peer peer2 = client.newPeer("peer0.Brand", peerAddress);
+        Peer peer3 = client.newPeer("peer0.Brand", peerAddress);
+        Peer peer4 = client.newPeer("peer0.Brand", peerAddress);
         Channel up = client.newChannel("upstreamchannel");
         Channel down = client.newChannel("downstreamchannel");
         Channel market = client.newChannel("marketchannel");

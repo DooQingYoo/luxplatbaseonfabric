@@ -105,7 +105,6 @@
                 </tr>
                 </tbody>
             </table>
-            <br>
             <div th:class="${soldCommodity.queryTime==0?'alert alert-success':'alert alert-danger'}" role="alert"
                  th:utext="${soldCommodity.queryTime==0?'<b>查询成功! </b>您购买的商品为官方正品，且未被查询过':'<b>查询成功! </b>您购买的商品为官方正品，之前被查询过'}"></div>
         </div>

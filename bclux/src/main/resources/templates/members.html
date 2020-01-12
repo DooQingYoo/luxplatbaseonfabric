@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用户输入查询码查询真伪">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>您好，管理员</title>
+</head>
+<body style="height: 100%">
+<div th:replace="common::Adtopbar(massages=${session.message})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <table class="table" style="color: blanchedalmond; font-size: 24px; margin-top: 5%; text-align: center">
+                <tbody>
+                <tr th:if="${hides!=null}">
+                    <th colspan="8" style="text-align: center">生皮厂 <a class="btn btn-sm btn-default" th:href="@{/add/hide}"> + </a></th>
+                </tr>
+                <tr th:if="${hides!=null}" th:each="hide:${hides}">
+                    <td th:text="${hide.id}">1</td>
+                    <td th:text="${hide.name}">工厂1</td>
+                    <td th:text="${hide.address}">济南市扫覅祭扫范吉奥加分加分</td>
+                    <td th:text="${hide.contact}">1861345678</td>
+                    <td th:text="${hide.page}">http://www.rinima.com</td>
+                    <td th:text="${hide.legal}">王先生</td>
+                    <td th:text="${hide.memb?'是':'否'}">是</td>
+                    <td><a class="btn btn-info" th:href="@{'/hide/'+${hide.id}}">修改</a></td>
+                </tr>
+                <tr th:if="${leathers!=null}">
+                    <th colspan="8" style="text-align: center">皮革厂 <a class="btn btn-sm btn-default" th:href="@{/add/leather}"> + </a></th>
+                </tr>
+                <tr th:if="${leathers!=null}" th:each="leather:${leathers}">
+                    <td th:text="${leather.id}">1</td>
+                    <td th:text="${leather.name}">工厂1</td>
+                    <td th:text="${leather.address}">济南市扫覅祭扫范吉奥加分加分</td>
+                    <td th:text="${leather.contact}">1861345678</td>
+                    <td th:text="${leather.page}">http://www.rinima.com</td>
+                    <td th:text="${leather.legal}">王先生</td>
+                    <td th:text="${leather.memb?'是':'否'}">是</td>
+                    <td><a class="btn btn-info" th:href="@{'/leather/'+${leather.id}}">修改</a></td>
+                </tr>
+                <tr th:if="${factories!=null}">
+                    <th colspan="8" style="text-align: center">加工厂 <a class="btn btn-sm btn-default" th:href="@{/add/factory}"> + </a></th>
+                </tr>
+                <tr th:if="${factories!=null}" th:each="factory:${factories}">
+                    <td th:text="${factory.id}">1</td>
+                    <td th:text="${factory.name}">工厂1</td>
+                    <td th:text="${factory.address}">济南市扫覅祭扫范吉奥加分加分</td>
+                    <td th:text="${factory.contact}">1861345678</td>
+                    <td th:text="${factory.page}">http://www.rinima.com</td>
+                    <td th:text="${factory.legal}">王先生</td>
+                    <td th:text="${factory.memb?'是':'否'}">是</td>
+                    <td><a class="btn btn-info" th:href="@{'/factory/'+${factory.id}}">修改</a></td>
+                </tr>
+                <tr th:if="${retailers!=null}">
+                    <th colspan="8" style="text-align: center">零售商 <a class="btn btn-sm btn-default" th:href="@{/add/retailer}"> + </a></th>
+                </tr>
+                <tr th:if="${retailers!=null}" th:each="retailer:${retailers}">
+                    <td th:text="${retailer.id}">1</td>
+                    <td th:text="${retailer.name}">工厂1</td>
+                    <td th:text="${retailer.address}">济南市扫覅祭扫范吉奥加分加分</td>
+                    <td th:text="${retailer.contact}">1861345678</td>
+                    <td th:text="${retailer.page}">http://www.rinima.com</td>
+                    <td th:text="${retailer.legal}">王先生</td>
+                    <td th:text="${retailer.memb?'是':'否'}">是</td>
+                    <td><a class="btn btn-info" th:href="@{'/retailer/'+${retailer.id}}">修改</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    </div>
+</div>
+</body>
+</html>
