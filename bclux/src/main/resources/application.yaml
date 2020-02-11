@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://10.185.41.224:3306/bclux
+    url: jdbc:mysql://192.168.31.40:3306/bclux
     username: root
     password: 124816
   jpa:
@@ -29,4 +29,4 @@ fabric:
       SeoAwzABXcFfelmYAiBxV//HnU/XZMOPj6SzPfJJ24wR1MXZ+KV9n11CDEXK8A==
       -----END CERTIFICATE-----
     key: MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgvtOQT1mmouo11g72otaoNFcYPDZboTdz24tNA9Vcb7GhRANCAARaw7HNcsh9A0dgnXljWlGtci1RHMTYvA4HrVF6k6mJjZAsbn6p95jZT509ziE2CcNjiAJzNpXvhGi21yi1OFLi
-    ipAddress: grpc://10.185.41.224
+    ipAddress: 192.168.31.40
