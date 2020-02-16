@@ -1,9 +1,8 @@
 package bcluxs.controller;
 
-import bclux.bclux.DBDao.*;
+import bcluxs.DBDao.*;
 import bcluxs.service.BCService;
 import bcluxs.service.DBService;
-import bcluxs.DBDao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -176,6 +175,8 @@ public class AdminController {
             map.addAttribute("p2", "不要搞事情");
             return "fail";
         }
+        message.setNewMSG(false);
+        dbService.saveMessage(message);
         int count = (int) session.getAttribute("message");
         session.setAttribute("message", --count);
         map.addAttribute("h1", message.getMessageType() == MessageType.MultiTimes ? "异常状况：多次查询" : message.getMessageType() == MessageType.VerifyNotPass ? "异常状况：校验错误" : "异常状况：数据丢失");

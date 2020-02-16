@@ -1,9 +1,8 @@
 package bcluxs.controller;
 
-import bclux.bclux.DBDao.*;
+import bcluxs.DBDao.*;
 import bcluxs.service.BCService;
 import bcluxs.service.DBService;
-import bcluxs.DBDao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,7 +54,7 @@ public class MemberController {
             session.setAttribute("user", leatherProducer);
             return "redirect:/main";
         }
-        if (name.startsWith("工厂")) {
+        if (name.startsWith("商品加工厂")) {
             Factory factory = dbService.getFactory(name);
             if (factory == null || !factory.getPassword().equals(password)) {
                 return loginFail(map);
@@ -63,7 +62,7 @@ public class MemberController {
             session.setAttribute("user", factory);
             return "redirect:/main";
         }
-        if (name.startsWith("专卖店")) {
+        if (name.startsWith("零售商")) {
             Retailer retailer = dbService.getRetailer(name);
             if (retailer == null || !retailer.getPassword().equals(password)) {
                 return loginFail(map);

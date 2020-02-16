@@ -1,7 +1,5 @@
 package bcluxs.service;
 
-import bclux.bclux.DBDao.*;
-import bclux.bclux.DBRepository.*;
 import bcluxs.DBDao.*;
 import bcluxs.DBRepository.*;
 import org.springframework.beans.factory.annotation.Autowired;
