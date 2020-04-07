@@ -13,9 +13,9 @@
     <title>您好，[[${session.user.getName()}]]</title>
 </head>
 <body style="height: 100%">
-<div th:replace="common::topbar(username=${session.user.getName()})"></div>
+<div th:replace="common::Memtopbar(username=${session.user.getName()})"></div>
 <div class="container-fluid bgcontain">
-    <div class="row">
+    <div class="row" style="background:rgba(255,255,255,0.5); height: 100%">
         <div class="col-sm-1 col-md-2 col-lg-2"></div>
         <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
             <form class="form-inline" method="post" th:action="@{/retail}" style="padding-top: 20%;">
@@ -32,15 +32,7 @@
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">提交</button>
             </form>
-            <form class="form-inline" method="post" th:action="@{/commodity}" style="padding-top: 10%">
-                <p>查询商品：</p>
-                <div class="form-group">
-                    <label for="querySerialNum">商品序列号</label>
-                    <input type="text" class="form-control input-lg" id="querySerialNum" name="serialNum">
-                </div>
-                <button type="submit" class="btn btn-success btn-lg">查询</button>
-            </form>
-        </div>
+            </div>
         <div class="col-sm-1 col-md-2 col-lg-2"></div>
     </div>
 </div>

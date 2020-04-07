@@ -13,17 +13,13 @@ import (
 	"github.com/hyperledger/fabric/protos/peer"
 )
 
-type QueryCC struct {}
+type QueryCC struct{}
 
 type SoldCommodity struct {
-	// 零售商的编号
-	Retailer int `json:"retailer"`
-	// 售出的时间戳
-	TransactionTime int64 `json:"transaction_time"`
-	// 该被售出商品所对应的货物批次
-	ComNum string `json:"com_num"`
-	// 是否被查询过
-	Queried bool `json:"queried"`
+	Retailer        int    `json:"retailer"`
+	TransactionTime int64  `json:"transaction_time"`
+	ComNum          string `json:"com_num"`
+	Queried         bool   `json:"queried"`
 }
 
 func (q QueryCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
@@ -42,7 +38,7 @@ func (q QueryCC) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 
 func query(stub shim.ChaincodeStubInterface) peer.Response {
-	
+
 	_, arg := stub.GetFunctionAndParameters()
 	if len(arg) != 1 {
 		return fail("The argument should be the Serial Number")
@@ -103,7 +99,7 @@ func sell(stub shim.ChaincodeStubInterface) peer.Response {
 
 	// 所有信息整合
 	var allbyte []byte
-	buffer := bytes.NewBuffer(make([]byte,200))
+	buffer := bytes.NewBuffer(make([]byte, 200))
 	err1 := binary.Write(buffer, binary.BigEndian, int64(soldCom.Retailer))
 	err2 := binary.Write(buffer, binary.BigEndian, soldCom.TransactionTime)
 	err3 := binary.Write(buffer, binary.BigEndian, soldCom.Queried)

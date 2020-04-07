@@ -173,7 +173,7 @@ public class AdminController {
             map.addAttribute("h1", "不存在该条消息");
             map.addAttribute("p1", "请按正确步骤查看消息");
             map.addAttribute("p2", "不要搞事情");
-            return "fail";
+            return "message";
         }
         message.setNewMSG(false);
         dbService.saveMessage(message);
@@ -182,6 +182,6 @@ public class AdminController {
         map.addAttribute("h1", message.getMessageType() == MessageType.MultiTimes ? "异常状况：多次查询" : message.getMessageType() == MessageType.VerifyNotPass ? "异常状况：校验错误" : "异常状况：数据丢失");
         map.addAttribute("p1", "查询时间：" + DateFormat.getInstance().format(message.getTime()));
         map.addAttribute("p2", "异常查询码：" + message.getSerialNum());
-        return "fail";
+        return "message";
     }
 }

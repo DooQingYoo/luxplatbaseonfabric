@@ -6,8 +6,8 @@
     <title>Common</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top"
-     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0; background-color: #12253A"
+<nav class="navbar navbar-static-top"
+     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0"
      th:fragment="topbar">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -26,8 +26,8 @@
         </div>
     </div>
 </nav>
-<nav class="navbar navbar-inverse navbar-static-top"
-     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0; background-color: #12253A"
+<nav class="navbar navbar-static-top"
+     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0"
      th:fragment="Adtopbar">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -47,6 +47,23 @@
                 </li>
             </ul>
             <a th:href="@{/main}" class="navbar-right btn btn-primary navbar-btn">消息 <span th:if="${messages}!=0" class="badge" th:text="${massages}">10</span></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-static-top"
+     style="font-size: 18px; padding-left: 8%; padding-right: 15%; margin-bottom: 0; border-bottom: 0"
+     th:fragment="Memtopbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}" style="font-size: 22px">DooQY</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/main}">录入信息</a></li>
+                <li><a th:href="@{/search}">查询信息</a></li>
+            </ul>
+            <a th:if="${username==null}" th:href="@{/login}" class="navbar-right btn btn-primary navbar-btn">登录</a>
+            <p th:if="${username!=null}" class="navbar-right navbar-text" th:text="${username}">用户名</p>
         </div>
     </div>
 </nav>

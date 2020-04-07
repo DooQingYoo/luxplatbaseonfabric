@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="用户输入查询码查询真伪">
+    <meta name="description" content="">
     <!--  使用 jQuery 框架  -->
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <!--  使用 bootstrap 框架-->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
-    <title>您好，[[${session.user.getName()}]]</title>
+    <title>未查询到结果</title>
 </head>
 <body style="height: 100%">
 <div th:replace="common::Memtopbar(username=${session.user.getName()})"></div>
@@ -19,13 +19,16 @@
         <div class="col-sm-1 col-md-2 col-lg-3"></div>
         <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
             <div style="padding-top: 10%">
-                <h1 style="color: #398439; font-size: 63px">[[${substance}]]为：</h1></br>
-                <p style="font-size: 22px" th:text="${serialNum}">未知序列号</p></br></br></br>
+                <h1 style="color: #ff0058; font-size: 63px" th:text="${h1}">未查询到相关产品</h1></br>
+                <p style="font-size: 22px" th:text="${p1}">该页表示未您的产品序列号输入有误</p>
+                <p style="font-size: 22px" th:text="${p2}">或者您购买的产品不是正品</p></br></br></br>
+                <div style="padding-left: 70%"><a class="btn btn-danger btn-lg" href="#" role="button">Learn more</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-1 col-md-2 col-lg-3"></div>
     </div>
 </div>
+
 </body>
 </html>

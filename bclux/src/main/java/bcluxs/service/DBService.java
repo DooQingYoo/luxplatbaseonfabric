@@ -42,27 +42,27 @@ public class DBService {
         return soldCommodity.getOne(serialNum);
     }
 
-    boolean commodityExist(String serilNum) {
+    public boolean commodityExist(String serilNum) {
         return commodity.existsById(serilNum);
     }
 
-    Commodity queryCommodity(String serilNum) {
+    public Commodity queryCommodity(String serilNum) {
         return commodity.getOne(serilNum);
     }
 
-    boolean leatherExist(String serialNum) {
+    public boolean leatherExist(String serialNum) {
         return leather.existsById(serialNum);
     }
 
-    Leather queryLeather(String serialNum) {
+    public Leather queryLeather(String serialNum) {
         return leather.getOne(serialNum);
     }
 
-    boolean hideExist(String serialNum) {
+    public boolean hideExist(String serialNum) {
         return hide.existsById(serialNum);
     }
 
-    Hide queryHide(String serialNum) {
+    public Hide queryHide(String serialNum) {
         return hide.getOne(serialNum);
     }
 

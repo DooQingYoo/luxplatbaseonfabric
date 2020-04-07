@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// enum Layer of the leather
+// enum Quality of the leather
 type Layer int
 
 const (

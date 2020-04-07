@@ -81,7 +81,7 @@ public class MemberController {
         return loginFail(map);
     }
 
-    @RequestMapping("/main")
+    @GetMapping("/main")
     public String mainPage(HttpSession session, ModelMap map) {
         Object user = session.getAttribute("user");
         if ("Admin".equals(user)) {
@@ -114,7 +114,7 @@ public class MemberController {
             return "fail";
         }
         map.addAttribute("serialNum", serialNum);
-        map.addAttribute("substance", "商品");
+        map.addAttribute("substance", "商品防伪查询码");
         return "soldResult";
     }
 
@@ -125,7 +125,7 @@ public class MemberController {
             return produceFail(map);
         }
         map.addAttribute("serialNum", serialNum);
-        map.addAttribute("substance", "生皮");
+        map.addAttribute("substance", "生皮序列号");
         return "soldResult";
     }
 
@@ -142,7 +142,7 @@ public class MemberController {
             return produceFail(map);
         }
         map.addAttribute("serialNum", serialNum);
-        map.addAttribute("substance", "皮革");
+        map.addAttribute("substance", "皮革序列号");
         return "soldResult";
     }
 
@@ -160,8 +160,13 @@ public class MemberController {
             return produceFail(map);
         }
         map.addAttribute("serialNum", serianNum);
-        map.addAttribute("substance", "商品");
+        map.addAttribute("substance", "商品序列号");
         return "soldResult";
+    }
+
+    @GetMapping("/search")
+    public String search() {
+        return "search";
     }
 
     private String loginFail(ModelMap map) {

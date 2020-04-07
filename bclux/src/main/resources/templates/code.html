@@ -10,19 +10,19 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
-    <title>您好，[[${session.user.getName()}]]</title>
+    <title>产品真伪查询</title>
 </head>
 <body style="height: 100%">
-<div th:replace="common::Memtopbar(username=${session.user.getName()})"></div>
+<div th:replace="common::topbar"></div>
 <div class="container-fluid bgcontain">
     <div class="row">
         <div class="col-sm-1 col-md-2 col-lg-3"></div>
         <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <div style="padding-top: 10%">
-                <h1 style="color: #398439; font-size: 63px">[[${substance}]]为：</h1></br>
-                <p style="font-size: 22px" th:text="${serialNum}">未知序列号</p></br></br></br>
-                </div>
+            <h1 style="text-align: center; padding-top: 10%; color: #398439">请妥善保管您的二维码</h1>
+            <div style="text-align: center; padding-top: 10%">
+                <img th:src="@{/images/code2.png}"/>
             </div>
+
         </div>
         <div class="col-sm-1 col-md-2 col-lg-3"></div>
     </div>
