@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="显示查询结果">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>查询结果</title>
+</head>
+<body style="height: 100%">
+<div th:replace="common::Memtopbar(username=${session.user.getName()})"></div>
+<div class="container-fluid bgcontain">
+    <div class="row" style="background:rgba(255,255,255,0.5); height: 100%">
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <table class="table" style="color: #23527c; font-size: 20px; font-weight: bold; margin-top: 20%; text-align: center; padding-top: 20%">
+                <tbody>
+                <tr>
+                    <td>生皮序列号</td>
+                    <td th:text="${hide.getSerialNum()}">Yo3ENXky4rGwy9HEtNiYQmTUeThVs1d3dKYdFG1WqSyD</td>
+                </tr>
+                <tr th:switch="${hide.getAnimalType()}">
+                    <td>生皮种类</td>
+                    <td th:case="0">牛皮</td>
+                    <td th:case="1">羊皮</td>
+                    <td th:case="2">猪皮</td>
+                    <td th:case="3">鹿皮</td>
+                    <td th:case="4">鱼皮</td>
+                    <td th:case="5">蛇皮</td>
+                    <td th:case="6">鸵鸟皮</td>
+                    <td th:case="7">鳄鱼皮</td>
+                </tr>
+                <tr th:switch="${hide.getReserveType()}">
+                    <td>生皮存储</td>
+                    <td th:case="0">鲜皮</td>
+                    <td th:case="1">冻鲜皮</td>
+                    <td th:case="2">干皮</td>
+                    <td th:case="3">冻干皮</td>
+                    <td th:case="4">干腌皮</td>
+                    <td th:case="5">湿腌皮</td>
+                    <td th:case="6">浸酸皮</td>
+                    <td th:case="7">照射皮</td>
+                </tr>
+                <tr>
+                    <td>制成时间</td>
+                    <td th:text="${#dates.format(hide.transactionTime)}">2019年8月8日</td>
+                </tr>
+                <tr>
+                    <td>生皮供应商</td>
+                    <td th:text="${hide.getProducer().getName()}">100</td>
+                </tr>
+                <tr>
+                    <td>联系方式</td>
+                    <td th:text="${hide.getProducer().getContact()}">100</td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+        </div>
+
+        <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    </div>
+</div>
+</body>
+</html>
