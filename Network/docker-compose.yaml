@@ -343,54 +343,6 @@ services:
     networks:
       - bcnet
         
-  peer0.Agent1:
-    container_name: peer0.Agent1
-    extends:
-      file: peer-base.yaml
-      service: all-peers
-    environment:
-      - CORE_PEER_ID=peer0.Agent1
-      - CORE_PEER_ADDRESS=peer0.Agent1:20051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:20051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Agent1:20052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:20052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Agent1:20051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Agent1:20051
-      - CORE_PEER_LOCALMSPID=Agent1MSP
-    volumes:
-      - /var/run/:/host/var/run/
-      - ./crypto-config/peerOrganizations/Agent1/peers/peer0.Agent1/msp:/etc/hyperledger/fabric/msp
-      - ./fabricdata/Agent1/p0:/var/hyperledger/production/
-    #      - ./crypto-config/peerOrganizations/Agent1/peers/peer0.Agent1/tls:/etc/hyperledger/fabric/tls
-    ports:
-      - 20051:20051
-    networks:
-      - bcnet
-        
-  peer0.Agent2:
-    container_name: peer0.Agent2
-    extends:
-      file: peer-base.yaml
-      service: all-peers
-    environment:
-      - CORE_PEER_ID=peer0.Agent2
-      - CORE_PEER_ADDRESS=peer0.Agent2:21051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:21051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Agent2:21052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:21052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Agent2:21051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Agent2:21051
-      - CORE_PEER_LOCALMSPID=Agent2MSP
-    volumes:
-      - /var/run/:/host/var/run/
-      - ./crypto-config/peerOrganizations/Agent2/peers/peer0.Agent2/msp:/etc/hyperledger/fabric/msp
-      - ./fabricdata/Agent2/p0:/var/hyperledger/production/
-    #      - ./crypto-config/peerOrganizations/Agent2/peers/peer0.Agent2/tls:/etc/hyperledger/fabric/tls
-    ports:
-      - 21051:21051
-    networks:
-      - bcnet
-        
   peer0.Retailer1:
     container_name: peer0.Retailer1
     extends:
@@ -398,12 +350,12 @@ services:
       service: all-peers
     environment:
       - CORE_PEER_ID=peer0.Retailer1
-      - CORE_PEER_ADDRESS=peer0.Retailer1:22051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:22051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer1:22052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:22052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer1:22051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer1:22051
+      - CORE_PEER_ADDRESS=peer0.Retailer1:20051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:20051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer1:20052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:20052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer1:20051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer1:20051
       - CORE_PEER_LOCALMSPID=Retailer1MSP
     volumes:
       - /var/run/:/host/var/run/
@@ -411,7 +363,7 @@ services:
       - ./fabricdata/Retailer1/p0:/var/hyperledger/production/
     #      - ./crypto-config/peerOrganizations/Retailer1/peers/peer0.Retailer1/tls:/etc/hyperledger/fabric/tls
     ports:
-      - 22051:22051
+      - 20051:20051
     networks:
       - bcnet
         
@@ -422,12 +374,12 @@ services:
       service: all-peers
     environment:
       - CORE_PEER_ID=peer0.Retailer2
-      - CORE_PEER_ADDRESS=peer0.Retailer2:23051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:23051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer2:23052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:23052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer2:23051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer2:23051
+      - CORE_PEER_ADDRESS=peer0.Retailer2:21051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:21051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer2:21052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:21052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer2:21051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer2:21051
       - CORE_PEER_LOCALMSPID=Retailer2MSP
     volumes:
       - /var/run/:/host/var/run/
@@ -435,7 +387,7 @@ services:
       - ./fabricdata/Retailer2/p0:/var/hyperledger/production/
     #      - ./crypto-config/peerOrganizations/Retailer2/peers/peer0.Retailer2/tls:/etc/hyperledger/fabric/tls
     ports:
-      - 23051:23051
+      - 21051:21051
     networks:
       - bcnet
         
@@ -446,12 +398,12 @@ services:
       service: all-peers
     environment:
       - CORE_PEER_ID=peer0.Retailer3
-      - CORE_PEER_ADDRESS=peer0.Retailer3:24051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:24051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer3:24052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:24052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer3:24051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer3:24051
+      - CORE_PEER_ADDRESS=peer0.Retailer3:22051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:22051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer3:22052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:22052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer3:22051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer3:22051
       - CORE_PEER_LOCALMSPID=Retailer3MSP
     volumes:
       - /var/run/:/host/var/run/
@@ -459,7 +411,7 @@ services:
       - ./fabricdata/Retailer3/p0:/var/hyperledger/production/
     #      - ./crypto-config/peerOrganizations/Retailer3/peers/peer0.Retailer3/tls:/etc/hyperledger/fabric/tls
     ports:
-      - 24051:24051
+      - 22051:22051
     networks:
       - bcnet
         
@@ -470,12 +422,12 @@ services:
       service: all-peers
     environment:
       - CORE_PEER_ID=peer0.Retailer4
-      - CORE_PEER_ADDRESS=peer0.Retailer4:25051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:25051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer4:25052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:25052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer4:25051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer4:25051
+      - CORE_PEER_ADDRESS=peer0.Retailer4:23051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:23051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.Retailer4:23052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:23052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.Retailer4:23051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.Retailer4:23051
       - CORE_PEER_LOCALMSPID=Retailer4MSP
     volumes:
       - /var/run/:/host/var/run/
@@ -483,7 +435,7 @@ services:
       - ./fabricdata/Retailer4/p0:/var/hyperledger/production/
     #      - ./crypto-config/peerOrganizations/Retailer4/peers/peer0.Retailer4/tls:/etc/hyperledger/fabric/tls
     ports:
-      - 25051:25051
+      - 23051:23051
     networks:
       - bcnet
 

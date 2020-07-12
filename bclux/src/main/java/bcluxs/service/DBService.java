@@ -11,10 +11,6 @@ import java.util.List;
 @Service
 public class DBService {
 
-    private final SoldCommodityRepository soldCommodity;
-    private final CommodityRepository commodity;
-    private final LeatherRepository leather;
-    private final HideRepository hide;
     private final FactoryRepository factory;
     private final HideProducerRepository hideProducer;
     private final LeatherProducerRepository leatherProducer;
@@ -22,48 +18,12 @@ public class DBService {
     private final MessageRepository message;
 
     @Autowired
-    public DBService(SoldCommodityRepository soldCommodity, CommodityRepository commodity, LeatherRepository leather, HideRepository hide, FactoryRepository factory, HideProducerRepository hideProducer, LeatherProducerRepository leatherProducer, RetailerRepository retailer, MessageRepository message) {
-        this.soldCommodity = soldCommodity;
-        this.commodity = commodity;
-        this.leather = leather;
-        this.hide = hide;
+    public DBService(FactoryRepository factory, HideProducerRepository hideProducer, LeatherProducerRepository leatherProducer, RetailerRepository retailer, MessageRepository message) {
         this.factory = factory;
         this.hideProducer = hideProducer;
         this.leatherProducer = leatherProducer;
         this.retailer = retailer;
         this.message = message;
-    }
-
-    public boolean queryExist(String serialNum) {
-        return soldCommodity.existsById(serialNum);
-    }
-
-    public SoldCommodity query(String serialNum) {
-        return soldCommodity.getOne(serialNum);
-    }
-
-    public boolean commodityExist(String serilNum) {
-        return commodity.existsById(serilNum);
-    }
-
-    public Commodity queryCommodity(String serilNum) {
-        return commodity.getOne(serilNum);
-    }
-
-    public boolean leatherExist(String serialNum) {
-        return leather.existsById(serialNum);
-    }
-
-    public Leather queryLeather(String serialNum) {
-        return leather.getOne(serialNum);
-    }
-
-    public boolean hideExist(String serialNum) {
-        return hide.existsById(serialNum);
-    }
-
-    public Hide queryHide(String serialNum) {
-        return hide.getOne(serialNum);
     }
 
     public HideProducer getHideProducer(String name) {
@@ -80,26 +40,6 @@ public class DBService {
 
     public Retailer getRetailer(String name) {
         return retailer.getByName(name);
-    }
-
-    @Transactional
-    public void save(SoldCommodity soldCommodity1) {
-        soldCommodity.save(soldCommodity1);
-    }
-
-    @Transactional
-    public void saveCommodity(Commodity commodity1) {
-        commodity.save(commodity1);
-    }
-
-    @Transactional
-    public void saveLeather(Leather leather1) {
-        leather.save(leather1);
-    }
-
-    @Transactional
-    public void saveHide(Hide hide1) {
-        hide.save(hide1);
     }
 
     public Retailer getRetailer(Integer id) {

@@ -5,6 +5,7 @@ import bcluxs.DBDao.*;
 import bcluxs.service.BCService;
 import bcluxs.service.DBService;
 import bcluxs.utils.Tools;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -29,80 +31,71 @@ public class QueryController {
 
     @PostMapping("/query")
     public String query(@RequestParam("serial") String serialNum, ModelMap modelMap) {
-        if (dbService.queryExist(serialNum)) {
-            SoldCommodity soldCommodity = dbService.query(serialNum);
-            if (soldCommodity.getQueryTime() >= 20) {
-                // 发送消息
-                Message message = new Message();
-                message.setNewMSG(true);
-                message.setMessageType(MessageType.MultiTimes);
-                message.setSerialNum(serialNum);
-                message.setTime(new Date());
-                dbService.saveMessage(message);
-            }
-            if (!Tools.verifySerial(soldCommodity, serialNum)) {
-                // 发送消息
-                Message message = new Message();
-                message.setNewMSG(true);
-                message.setMessageType(MessageType.VerifyNotPass);
-                message.setSerialNum(serialNum);
-                message.setTime(new Date());
-                dbService.saveMessage(message);
-                return searchBC(serialNum, modelMap);
-            }
-            SoldCommodity newsold = new SoldCommodity(soldCommodity.getSerialNum(), soldCommodity.getRetailer(),
-                    soldCommodity.getTransactionTime(), soldCommodity.getCommodity(),
-                    soldCommodity.getQueryTime(), soldCommodity.getLastQuery());
-            soldCommodity.setQueryTime(soldCommodity.getQueryTime() + 1);
-            soldCommodity.setLastQuery(new Date());
-            dbService.save(soldCommodity);
-            modelMap.addAttribute("soldCommodity", newsold);
-            return "result";
-        } else {
-            return searchBC(serialNum, modelMap);
-        }
-    }
 
-    private String searchBC(String serialNum, ModelMap modelMap) {
         SoldCommodity sold = bcService.querySold(serialNum);
-        if (sold != null) {
-            modelMap.addAttribute("soldCommodity", sold);
-            return "result";
+        if (sold == null) {
+            modelMap.addAttribute("h1", "未查询到相关产品");
+            modelMap.addAttribute("p1", "该页表示未您的产品序列号输入有误");
+            modelMap.addAttribute("p2", "或者您购买的产品不是正品");
+            return "fail";
         }
-        modelMap.addAttribute("h1", "未查询到相关产品");
-        modelMap.addAttribute("p1", "该页表示未您的产品序列号输入有误");
-        modelMap.addAttribute("p2", "或者您购买的产品不是正品");
-        return "fail";
+        modelMap.addAttribute("soldCommodity", sold);
+        if (sold.getQueryTime() >= 20) {
+            // 发送消息
+            Message message = new Message();
+            message.setNewMSG(true);
+            message.setMessageType(MessageType.MultiTimes);
+            message.setSerialNum(serialNum);
+            message.setTime(new Date());
+            dbService.saveMessage(message);
+        }
+        if (!Tools.verifySerial(sold, serialNum)) {
+            // 发送消息
+            Message message = new Message();
+            message.setNewMSG(true);
+            message.setMessageType(MessageType.VerifyNotPass);
+            message.setSerialNum(serialNum);
+            message.setTime(new Date());
+            dbService.saveMessage(message);
+        }
+        return "result";
     }
 
     @PostMapping("/search/{type}")
     public String commodity(@RequestParam("serialNum") String serialNum, @PathVariable("type") String type, ModelMap map, HttpSession session) {
+        Object user = session.getAttribute("user");
         switch (type) {
             case "rawhide":
-                Hide hide = null;
-                if (dbService.hideExist(serialNum)) {
-                    hide = dbService.queryHide(serialNum);
-                } else {
-                    hide = bcService.queryHide(serialNum);
-                }
+                Hide hide = bcService.queryHide(serialNum);
                 if (hide == null) {
                     map.addAttribute("h1", "未找到该批次生皮");
                     map.addAttribute("p1", "请检查序列号是否输入正确");
                     map.addAttribute("p2", "或稍后尝试");
                     return "searchfail";
                 }
-                Object user = session.getAttribute("user");
                 if (user instanceof HideProducer) {
                     HideProducer hp = (HideProducer) user;
                     if (!hp.getId().equals(hide.getProducer().getId())) {
-                        return noPrivilege(map, "生皮");
+                        return noPrivilege(map, "生皮", hide.getProducer().getName());
                     }
                 }
                 map.addAttribute("hide", hide);
-                map.addAttribute("serialNum", serialNum);
                 return "hideResult";
             case "leather":
-                return noPrivilege(map, "皮革");
+                Leather leather = bcService.queryLeather(serialNum);
+                if (leather == null) {
+                    map.addAttribute("h1", "未找到该批次皮革");
+                    map.addAttribute("p1", "请检查序列号是否输入正确");
+                    map.addAttribute("p2", "或稍后尝试");
+                    return "searchfail";
+                }
+                if (user instanceof LeatherProducer) {
+                    LeatherProducer lp = (LeatherProducer) user;
+                    if (!lp.getId().equals(leather.getProducer().getId()))
+                        return noPrivilege(map, "皮革", leather.getProducer().getName());
+                }
+                map.addAttribute("leather", leather);
+                return "leatherResult";
             case "commodity":
                 BCCommodity bcCommodity = bcService.queryBCCommodity(serialNum);
                 if (bcCommodity == null) {
@@ -112,6 +105,11 @@ public class QueryController {
                     return "searchfail";
                 }
                 Factory factory = dbService.getFactory(bcCommodity.getFactory());
+                if (user instanceof Factory) {
+                    Factory f = (Factory) user;
+                    if (!f.getId().equals(factory.getId()))
+                        return noPrivilege(map, "皮包", factory.getName());
+                }
                 map.addAttribute("commodity", bcCommodity);
                 map.addAttribute("serialNum", serialNum);
                 map.addAttribute("factory", factory.getName());
@@ -129,10 +127,11 @@ public class QueryController {
         return "code";
     }
 
-    public String noPrivilege(ModelMap map, String good) {
+    public String noPrivilege(ModelMap map, String good, String owner) {
         map.addAttribute("h1", "查询失败");
         map.addAttribute("p1", "您没有查询该批次" + good + "的权限");
-        map.addAttribute("p2", "请重新输入序列号");
+        map.addAttribute("p2", "该批货物属于" + owner);
+
         return "searchfail";
     }
 }

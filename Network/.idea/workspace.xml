@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4f0d7b73-4fc2-4110-9e31-5f565f7772ca" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="4f0d7b73-4fc2-4110-9e31-5f565f7772ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bcnet.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bcnet.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/Alltogether/chaincode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/DownstreamChannel/DScc.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/DownstreamChannel/DScc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/MarketChannel/MKcc.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/MarketChannel/MKcc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/QueryChannel/QRcc.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/QueryChannel/QRcc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/UpstreamChannel/UScc.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/UpstreamChannel/UScc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cli.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configtx.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/configtx.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/crypto_config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BCDao/BCSoldCommodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BCDao/BCSoldCommodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BCRepository/FabricSDK.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BCRepository/FabricSDK.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BcluxApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/BcluxApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Commodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Commodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Factory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Factory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Hide.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Hide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Leather.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/Leather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/MessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/SoldCommodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/DBDao/SoldCommodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/config/SuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/config/SuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/QueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/controller/QueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/BCService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/BCService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/UserSecurityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/java/bcluxs/service/UserSecurityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/commodityResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/commodityResult.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/common.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/common.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/leatherResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/leatherResult.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bclux/src/main/resources/templates/talk.html" beforeDir="false" afterPath="$PROJECT_DIR$/../bclux/src/main/resources/templates/talk.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="GOROOT" path="C:\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1TlcGeSN3RXqyEvtaf2FP8jx5ms" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../QuickTest/NetWork/cli.sh" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -24,19 +72,13 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1588731198751">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1588731198751" />
   </component>
 </project>

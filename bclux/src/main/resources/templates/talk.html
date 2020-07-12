@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -7,9 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PC聊天</title>
     <link rel="stylesheet" href="css/talk.css">
+    <!--  使用 jQuery 框架  -->
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <!--  使用 bootstrap 框架-->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 </head>
 <body>
-	<header>导航栏</header>
+<div th:replace="common::topbar"></div>
 <div class="main">
     <div class="top">
         
@@ -17,14 +22,14 @@
     <div class="box">
         <div class="chat-list">
             <div class="list-box">
-                <img class="chat-head" src="../static/img/img-header2.jpg" alt="">
+                <img class="chat-head" th:src="@{/images/img-heaer2.jpg}" alt="">
                 <div class="chat-rig">
                     <p class="title">客服1</p>
                     <p class="text">留言！！！</p>
                 </div>
             </div>
             <div class="list-box">
-                <img class="chat-head" src="../static/img/img-header2.jpg" alt="">
+                <img class="chat-head" th:src="@{/images/img-header2.jpg}" alt="">
                 <div class="chat-rig">
                     <p class="title">客服2</p>
                     <p class="text">咨询</p>
@@ -40,51 +45,51 @@
                 <div class="news-top">
                     <ul>
                         <li class="other">
-                            <div class="avatar"><img src="../static/img/img-header2.jpg" alt=""></div>
+                            <div class="avatar"><img th:src="@{/images/img-header2.jpg}" alt=""></div>
                             <div class="msg">
-                                <p class="msg-name">客服</p>
-                                <p class="msg-text">你好！ </p>
+                                <p class="msg-name">老黄</p>
+                                <p class="msg-text">你好！</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="self">
                             <div class="msg">
-                                <p class="msg-name">用户名</p>
-                                <p class="msg-text">我要咨询问题。。。。。</p>
+                                <p class="msg-name">后端组</p>
+                                <p class="msg-text">我要咨询问题。</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="self">
                             <div class="msg">
-                                <p class="msg-name">用户名</p>
-                                <p class="msg-text">咨询问题1</p>
+                                <p class="msg-name">后端组</p>
+                                <p class="msg-text">对话的模型训练好了没有</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="other">
                             <div class="msg">
-                                <p class="msg-name">客服回答</p>
-                                <p class="msg-text">回答问题1</p>
+                                <p class="msg-name">老黄</p>
+                                <p class="msg-text">没有，这个功能不做了</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="self">
                             <div class="msg">
-                                <p class="msg-name">用户名</p>
-                                <p class="msg-text">咨询问题2</emoji></p>
+                                <p class="msg-name">后端组</p>
+                                <p class="msg-text">为啥</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="other">
                             <div class="msg">
-                                <p class="msg-name">客服</p>
-                                <p class="msg-text">回答问题2</p>
+                                <p class="msg-name">老黄</p>
+                                <p class="msg-text">没有数据集</p>
                                 <time>20:18</time>
                             </div>
                         </li>
                         <li class="self">
                          	<div class="msg">
-                                <p class="msg-name">用户</p>
+                                <p class="msg-name">后端组</p>
                                 <p class="msg-text">。。。。。</p>
                                 <time>20:18</time>
                             </div>

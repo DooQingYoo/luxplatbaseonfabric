@@ -12,5 +12,8 @@ public class BCSoldCommodity {
     Long transactionTime;
     @JsonProperty("com_num")
     String commNum;
-    Boolean queried;
+    @JsonProperty("query_times")
+    Integer queryTimes;
+    @JsonProperty("last_query")
+    Long lastQuery;
 }

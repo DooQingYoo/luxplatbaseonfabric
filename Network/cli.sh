@@ -89,28 +89,22 @@ function netjoin() {
   &&  updateAnchor "1" "Factory2" "Downstream" \
   &&  joinChannel "1" "Factory2" "market" \
   &&  updateAnchor "1" "Factory2" "Market" \
-  &&  setEnv "0" "Agent1" "20051" \
-  &&  joinChannel "0" "Agent1" "market" \
-  &&  updateAnchor "0" "Agent1" "Market" \
-  &&  setEnv "0" "Agent2" "21051" \
-  &&  joinChannel "0" "Agent2" "market" \
-  &&  updateAnchor "0" "Agent2" "Market" \
-  &&  setEnv "0" "Retailer1" "22051" \
+  &&  setEnv "0" "Retailer1" "20051" \
   &&  joinChannel "0" "Retailer1" "market" \
   &&  updateAnchor "0" "Retailer1" "Market" \
   &&  joinChannel "0" "Retailer1" "query" \
   &&  updateAnchor "0" "Retailer1" "Query" \
-  &&  setEnv "0" "Retailer2" "23051" \
+  &&  setEnv "0" "Retailer2" "21051" \
   &&  joinChannel "0" "Retailer2" "market" \
   &&  updateAnchor "0" "Retailer2" "Market" \
   &&  joinChannel "0" "Retailer2" "query" \
   &&  updateAnchor "0" "Retailer2" "Query" \
-  &&  setEnv "0" "Retailer3" "24051" \
+  &&  setEnv "0" "Retailer3" "22051" \
   &&  joinChannel "0" "Retailer3" "market" \
   &&  updateAnchor "0" "Retailer3" "Market" \
   &&  joinChannel "0" "Retailer3" "query" \
   &&  updateAnchor "0" "Retailer3" "Query" \
-  &&  setEnv "0" "Retailer4" "25051" \
+  &&  setEnv "0" "Retailer4" "23051" \
   &&  joinChannel "0" "Retailer4" "market" \
   &&  updateAnchor "0" "Retailer4" "Market" \
   &&  joinChannel "0" "Retailer4" "query" \
@@ -178,20 +172,16 @@ function netinstall() {
   &&  setEnv "0" "Factory2" "18051" \
   &&  installcc "0" "Factory2" "Downstream" \
   &&  installcc "0" "Factory2" "Market" \
-  &&  setEnv "0" "Agent1" "20051" \
-  &&  installcc "0" "Agent1" "Market" \
-  &&  setEnv "0" "Agent2" "21051" \
-  &&  installcc "0" "Agent2" "Market" \
-  &&  setEnv "0" "Retailer1" "22051" \
+  &&  setEnv "0" "Retailer1" "20051" \
   &&  installcc "0" "Retailer1" "Market" \
   &&  installcc "0" "Retailer1" "Query" \
-  &&  setEnv "0" "Retailer2" "23051" \
+  &&  setEnv "0" "Retailer2" "21051" \
   &&  installcc "0" "Retailer2" "Market" \
   &&  installcc "0" "Retailer2" "Query" \
-  &&  setEnv "0" "Retailer3" "24051" \
+  &&  setEnv "0" "Retailer3" "22051" \
   &&  installcc "0" "Retailer3" "Market" \
   &&  installcc "0" "Retailer3" "Query" \
-  &&  setEnv "0" "Retailer4" "25051" \
+  &&  setEnv "0" "Retailer4" "23051" \
   &&  installcc "0" "Retailer4" "Market" \
   &&  installcc "0" "Retailer4" "Query"
 }

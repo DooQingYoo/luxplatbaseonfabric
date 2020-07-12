@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,228 +10,242 @@
     <title>商品展示主界面</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" th:href="@{/images/core-img/favicon.ico}">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    <link rel="stylesheet" th:href="@{/css/new-bootstrap.css}">
 </head>
 
 <body>
-    <!-- ##### Header Area Start ##### -->
- 	<header>导航栏</header>
- 	<!-- ##### Header Area End ##### -->
-
-   
-
-    <!-- ##### Welcome Area Start ##### -->
-    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/bg-1.jpg);">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <div class="hero-content">
-                        <h6>最新商品</h6>
-                        <h2>The lastest fashion</h2>
-                    </div>
+<nav class="nav1bar navbar-static-top"
+     style=" padding-left: 8%; padding-right: 15%;margin-top: -80px; margin-bottom: 0; border-bottom: 0"
+     th:fragment="topbar">
+    <div class="container-fluid1">
+        <div class="nav1bar-header">
+            <a class="nav1bar-brand" th:href="@{/}" style="font-size: 20px; color: #1b6d85">DooQY</a>
+        </div>
+        <div class="collapse1 nav1bar-collapse">
+            <ul class="nav1 nav1bar-nav1">
+                <li><a th:href="@{/}" style="font-size: 20px; color: #1b6d85">品牌故事</a></li>
+                <li><a th:href="@{/}" style="font-size: 20px; color: #1b6d85">产品</a></li>
+                <li><a th:href="@{/}" style="font-size: 20px; color: #1b6d85">官方商城</a></li>
+                <li><a th:href="@{/query}" style="font-size: 20px; color: #1b6d85">真伪查询</a></li>
+                <li><a th:href="@{/talk}" style="font-size: 20px; color: #1b6d85">FAQ</a></li>
+            </ul>
+            <a th:if="${username==null}" th:href="@{/userlogin}" class="nav1bar-right btn1 btn1-primary nav1bar-btn">登录</a>
+            <p th:if="${username!=null}" class="nav1bar-right nav1bar-text" th:text="${username}">用户名</p>
+        </div>
+    </div>
+</nav>
+<!-- ##### Welcome Area Start ##### -->
+<section class="welcome_area bg-img background-overlay" style="background-image: url(../images/bg-img/bg-1.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="hero-content">
+                    <h6>最新商品</h6>
+                    <h2>The lastest fashion</h2>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ##### Welcome Area End ##### -->
+    </div>
+</section>
+<!-- ##### Welcome Area End ##### -->
 
-    <!-- ##### 商品分区（无）##### -->
-    <!--<div class="top_catagory_area section-padding-80 clearfix">
-        <div class="container">
-            <div class="row justify-content-center">
-                <!-- Single Catagory -->
-                <!--<div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-2.jpg);">
-                        <div class="catagory-content">
-                            <a href="#">衣服</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Catagory -->
-                <!--<div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
-                        <div class="catagory-content">
-                            <a href="#">鞋子</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Catagory -->
-                <!--<div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-4.jpg);">
-                        <div class="catagory-content">
-                            <a href="#">皮包</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ##### 商品分区（无）##### -->
+<!--<div class="top_catagory_area section-padding-80 clearfix">
+    <div class="container">
+        <div class="row justify-content-center">
+            <-- Single Catagory -->
+<!--<div class="col-12 col-sm-6 col-md-4">
+    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-2.jpg);">
+        <div class="catagory-content">
+            <a href="#">衣服</a>
         </div>
-    </div>-->
-    <!-- ##### 商品分区 End ##### -->
+    </div>
+</div>
+<-- Single Catagory -->
+<!--<div class="col-12 col-sm-6 col-md-4">
+    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
+        <div class="catagory-content">
+            <a href="#">鞋子</a>
+        </div>
+    </div>
+</div>
+<-- Single Catagory -->
+<!--<div class="col-12 col-sm-6 col-md-4">
+    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg-4.jpg);">
+        <div class="catagory-content">
+            <a href="#">皮包</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>-->
+<!-- ##### 商品分区 End ##### -->
 
-    <!-- ##### 打折商品 Area Start ##### -->
-    <div class="cta-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="cta-content bg-img background-overlay" style="background-image: url(img/bg-img/bg-5.jpg);">
-                        <div class="h-100 d-flex align-items-center justify-content-end">
-                            <div class="cta--text">
-                                <h6>-60%</h6>
-                                <h2>全球直销</h2>
-                                <a href="#" class="btn essence-btn">立即购买</a>
-                            </div>
+<!-- ##### 打折商品 Area Start ##### -->
+<div class="cta-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="cta-content bg-img background-overlay"
+                     style="background-image: url(../images/bg-img/bg-5.jpg);">
+                    <div class="h-100 d-flex align-items-center justify-content-end">
+                        <div class="cta--text">
+                            <h6>-60%</h6>
+                            <h2>全球直销</h2>
+                            <a href="#" class="btn essence-btn">立即购买</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ##### 打折商品 Area End ##### -->
+</div>
+<!-- ##### 打折商品 Area End ##### -->
 
-    <!-- ##### 商品展示 Area Start ##### -->
-    <section class="new_arrivals_area section-padding-80 clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center">
-                        <h2>流行潮品</h2>
-                    </div>
+<!-- ##### 商品展示 Area Start ##### -->
+<section class="new_arrivals_area section-padding-80 clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2>流行潮品</h2>
                 </div>
             </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="popular-products-slides owl-carousel">
-
-                        <!-- 单个商品 -->
-                        <div class="single-product-wrapper">
-                            <!-- 展示图 -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-1.jpg" alt="">
-                                <!-- 下一个商品 -->
-                                <img class="hover-img" src="img/product-img/product-2.jpg" alt="">
-                                
-                            </div>
-                            <!-- 商品描述 -->
-                            <div class="product-description">
-                                <span>品牌</span>
-                                <a href="single-product-details.html">
-                                    <h6>商品名称1（****皮包）</h6>
-                                </a>
-                                <p class="product-price">$80.00</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-2.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-3.jpg" alt="">
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>品牌</span>
-                                <a href="single-product-details.html">
-                                    <h6>商品名称2（****皮包）</h6>
-                                </a>
-                                <p class="product-price">$80.00</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-3.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-4.jpg" alt="">
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>品牌</span>
-                                <a href="single-product-details.html">
-                                    <h6>商品名称3（****皮包）</h6>
-                                </a>
-                                <p class="product-price">$75.00</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-4.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-5.jpg" alt="">
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>品牌</span>
-                                <a href="single-product-details.html">
-                                    <h6>商品名称4（****皮包）</h6>
-                                </a>
-                                <p class="product-price">$60.00</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### 商品展示 Area End ##### -->
-
-    <!-- ##### 合作伙伴 Area Start ##### -->
-    <div class="brands-area d-flex align-items-center justify-content-between">
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand1.png" alt="">
-        </div>
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand2.png" alt="">
-        </div>
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand3.png" alt="">
-        </div>
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand4.png" alt="">
-        </div>
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand5.png" alt="">
-        </div>
-        <!-- Brand Logo -->
-        <div class="single-brands-logo">
-            <img src="img/core-img/brand6.png" alt="">
         </div>
     </div>
-    <!-- ##### 合作伙伴 Area End ##### -->
 
-    <!-- ##### Footer Area Start ##### -->
-    <footer class="footer_area clearfix">
-        底部
-    </footer>
-    <!-- ##### Footer Area End ##### -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="popular-products-slides owl-carousel">
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins js 商品轮播 -->
-    <script src="js/plugins.js"></script>
-    <!-- Active js -->
-    <script src="js/active.js"></script>
+                    <!-- 单个商品 -->
+                    <div class="single-product-wrapper">
+                        <!-- 展示图 -->
+                        <div class="product-img">
+                            <img th:src="@{/images/product-img/product-1.jpg}" alt="">
+                            <!-- 下一个商品 -->
+                            <img class="hover-img" th:src="@{/images/product-img/product-2.jpg}" alt="">
+
+                        </div>
+                        <!-- 商品描述 -->
+                        <div class="product-description">
+                            <span>品牌</span>
+                            <a th:href="@{/details}">
+                                <h6>商品名称1（****皮包）</h6>
+                            </a>
+                            <p class="product-price">$80.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Single Product -->
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img th:src="@{/images/product-img/product-2.jpg}" alt="">
+                            <!-- Hover Thumb -->
+                            <img class="hover-img" th:src="@{/images/product-img/product-3.jpg}" alt="">
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <span>品牌</span>
+                            <a th:href="@{/details}">
+                                <h6>商品名称2（****皮包）</h6>
+                            </a>
+                            <p class="product-price">$80.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Single Product -->
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img th:src="@{/images/product-img/product-3.jpg}" alt="">
+                            <!-- Hover Thumb -->
+                            <img class="hover-img" th:src="@{/images/product-img/product-4.jpg}" alt="">
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <span>品牌</span>
+                            <a th:href="@{/details}">
+                                <h6>商品名称3（****皮包）</h6>
+                            </a>
+                            <p class="product-price">$75.00</p>
+                        </div>
+                    </div>
+
+                    <!-- Single Product -->
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img th:src="@{/images/product-img/product-4.jpg}" alt="">
+                            <!-- Hover Thumb -->
+                            <img class="hover-img" th:src="@{/images/product-img/product-5.jpg}" alt="">
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <span>品牌</span>
+                            <a th:href="@{/details}">
+                                <h6>商品名称4（****皮包）</h6>
+                            </a>
+                            <p class="product-price">$60.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### 商品展示 Area End ##### -->
+
+<!-- ##### 合作伙伴 Area Start ##### -->
+<div class="brands-area d-flex align-items-center justify-content-between">
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand1.png}" alt="">
+    </div>
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand2.png}" alt="">
+    </div>
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand3.png}" alt="">
+    </div>
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand4.png}" alt="">
+    </div>
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand5.png}" alt="">
+    </div>
+    <!-- Brand Logo -->
+    <div class="single-brands-logo">
+        <img th:src="@{/images/core-img/brand6.png}" alt="">
+    </div>
+</div>
+<!-- ##### 合作伙伴 Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer_area clearfix">
+    底部
+</footer>
+<!-- ##### Footer Area End ##### -->
+
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Bootstrap js -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Plugins js 商品轮播 -->
+<script th:src="@{/js/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
 
 </body>
 

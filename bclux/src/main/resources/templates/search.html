@@ -22,25 +22,25 @@
                   class="form-inline" method="post" th:action="@{/search/rawhide}" style="padding-top: 15%">
                 <p>查询生皮：</p>
                 <div class="form-group">
-                    <label for="querySerialNum1">商品序列号</label>
+                    <label for="querySerialNum1">产品序列号</label>
                     <input type="text" style="width: 30em" class="form-control input-lg" id="querySerialNum1" name="serialNum">
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">查询</button>
             </form>
-            <form th:if="${#strings.startsWith(session.user.getName(),'商品加工厂')||#strings.startsWith(session.user.getName(),'皮革加工厂')}"
+            <form th:if="${#strings.startsWith(session.user.getName(),'皮包加工厂')||#strings.startsWith(session.user.getName(),'皮革加工厂')}"
                     class="form-inline" method="post" th:action="@{/search/leather}" style="padding-top: 15%">
                 <p>查询皮革：</p>
                 <div class="form-group">
-                    <label for="querySerialNum2">商品序列号</label>
+                    <label for="querySerialNum2">产品序列号</label>
                     <input type="text" style="width: 30em" class="form-control input-lg" id="querySerialNum2" name="serialNum">
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">查询</button>
             </form>
-            <form th:if="${#strings.startsWith(session.user.getName(),'商品加工厂')||#strings.startsWith(session.user.getName(),'零售商')}"
+            <form th:if="${#strings.startsWith(session.user.getName(),'皮包加工厂')||#strings.startsWith(session.user.getName(),'零售商')}"
                     class="form-inline" method="post" th:action="@{/search/commodity}" style="padding-top: 15%">
-                <p>查询商品：</p>
+                <p>查询皮包：</p>
                 <div class="form-group">
-                    <label for="querySerialNum3">商品序列号</label>
+                    <label for="querySerialNum3">产品序列号</label>
                     <input type="text" style="width: 30em" class="form-control input-lg" id="querySerialNum3" name="serialNum">
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">查询</button>

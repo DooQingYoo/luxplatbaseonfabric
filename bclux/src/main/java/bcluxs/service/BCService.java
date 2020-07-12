@@ -31,29 +31,11 @@ public class BCService {
         }
         SoldCommodity soldCommodity = new SoldCommodity();
         soldCommodity.setSerialNum(serialNum);
-        if (bcSoldCommodity.getQueried()) {
-            soldCommodity.setQueryTime(1);
-            Message message = new Message();
-            message.setNewMSG(true);
-            message.setSerialNum(serialNum);
-            message.setMessageType(MessageType.DataBaseAbsent);
-            message.setTime(new Date());
-            dbService.saveMessage(message);
-        } else {
-            soldCommodity.setQueryTime(0);
-        }
+        soldCommodity.setQueryTime(bcSoldCommodity.getQueryTimes());
         soldCommodity.setRetailer(dbService.getRetailer(bcSoldCommodity.getRetailer()));
-        soldCommodity.setLastQuery(null);
+        soldCommodity.setLastQuery(Tools.transTimestamp(bcSoldCommodity.getLastQuery()));
         soldCommodity.setTransactionTime(Tools.transTimestamp(bcSoldCommodity.getTransactionTime()));
-        if (dbService.commodityExist(bcSoldCommodity.getCommNum())) {
-            soldCommodity.setCommodity(dbService.queryCommodity(bcSoldCommodity.getCommNum()));
-        } else {
-            soldCommodity.setCommodity(queryCommodity(bcSoldCommodity.getCommNum()));
-        }
-        SoldCommodity newSold = new SoldCommodity(soldCommodity.getSerialNum(),
-                soldCommodity.getRetailer(), soldCommodity.getTransactionTime(), soldCommodity.getCommodity(),
-                soldCommodity.getQueryTime() + 1, new Date());
-        dbService.save(newSold);
+        soldCommodity.setCommodity(queryCommodity(bcSoldCommodity.getCommNum()));
         return soldCommodity;
     }
 
@@ -66,12 +48,7 @@ public class BCService {
         commodity.setSerialNum(serialNum);
         commodity.setFactory(dbService.getFactory(bcCommodity.getFactory()));
         commodity.setTransactionTime(Tools.transTimestamp(bcCommodity.getTransactionTime()));
-        if (dbService.leatherExist(bcCommodity.getLeatherNum())) {
-            commodity.setLeather(dbService.queryLeather(bcCommodity.getLeatherNum()));
-        } else {
-            commodity.setLeather(queryLeather(bcCommodity.getLeatherNum()));
-        }
-        dbService.saveCommodity(commodity);
+        commodity.setLeather(queryLeather(bcCommodity.getLeatherNum()));
         return commodity;
     }
 
@@ -87,12 +64,7 @@ public class BCService {
         leather.setTanning(bcLeather.getTanning());
         leather.setTransactionTime(Tools.transTimestamp(bcLeather.getTransactionTime()));
         leather.setProducer(dbService.getLeatherProducer(bcLeather.getProducer()));
-        if (dbService.hideExist(bcLeather.getHideNum())) {
-            leather.setHide(dbService.queryHide(bcLeather.getHideNum()));
-        } else {
-            leather.setHide(queryHide(bcLeather.getHideNum()));
-        }
-        dbService.saveLeather(leather);
+        leather.setHide(queryHide(bcLeather.getHideNum()));
         return leather;
     }
 
@@ -107,7 +79,6 @@ public class BCService {
         hide.setReserveType(bcHide.getReserveType());
         hide.setTransactionTime(Tools.transTimestamp(bcHide.getTransactionTime()));
         hide.setProducer(dbService.getHideProducer(bcHide.getProducer()));
-        dbService.saveHide(hide);
         return hide;
     }
 
@@ -117,10 +88,15 @@ public class BCService {
         }
         boolean ok = fabricSDK.marketchannelSell(commoditySerialNum);
         if (!ok) {
+            Message message = new Message();
+            message.setNewMSG(true);
+            message.setMessageType(MessageType.WrongNumber);
+            message.setSerialNum(commoditySerialNum);
+            message.setTime(new Date());
+            dbService.saveMessage(message);
             return null;
         }
-        String serialNum = fabricSDK.querychannelSell(id, commoditySerialNum);
-        return serialNum;
+        return fabricSDK.querychannelSell(id, commoditySerialNum);
     }
 
     public BCCommodity queryBCCommodity(String serialNum) {

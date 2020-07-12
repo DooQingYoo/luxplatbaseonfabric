@@ -37,8 +37,8 @@ function bcnetup() {
   # 等1秒看看起了多少个容器
   sleep 1s
   docker_numb=$(docker ps | wc -l)
-  # 应该有21个容器成功运行起来的，如果没有说明出了问题
-  if [ "$docker_numb" -lt 21 ] || [ "$docker_stat" -ne 0 ]; then
+  # 应该有19个容器成功运行起来的，如果没有说明出了问题
+  if [ "$docker_numb" -lt 19 ] || [ "$docker_stat" -ne 0 ]; then
     echo
     echo "!!!!!!!!!!!!!!!!!!!!docker容器创建失败!!!!!!!!!!!!!!!!!!!!"
     echo
@@ -72,8 +72,8 @@ function bcnetdown() {
     echo
     echo "####################没有发现链码镜像####################"
     echo
-  else
-    docker rmi -f $DOCKER_IMAGE_IDS
+#  else
+#    docker rmi -f $DOCKER_IMAGE_IDS
   fi
   echo
   echo "####################成功关闭docker容器与网络####################"
@@ -107,8 +107,6 @@ function bcnetgenerate() {
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Brand.tx -channelID marketchannel -asOrg Brand
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Factory1.tx -channelID marketchannel -asOrg Factory1
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Factory2.tx -channelID marketchannel -asOrg Factory2
-  configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Agent1.tx -channelID marketchannel -asOrg Agent1
-  configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Agent2.tx -channelID marketchannel -asOrg Agent2
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Retailer1.tx -channelID marketchannel -asOrg Retailer1
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Retailer2.tx -channelID marketchannel -asOrg Retailer2
   configtxgen -profile MarketChannel -outputAnchorPeersUpdate ./channel-artifacts/Market_Retailer3.tx -channelID marketchannel -asOrg Retailer3
@@ -124,7 +122,7 @@ function bcnetgenerate() {
 }
 
 function bcnetcli() {
-  if ! docker exec cli ./cli.sh "$1"; then
+  if ! docker exec cli bash ./cli.sh "$1"; then
     echo
     echo "!!!!!!!!!!!!!!!!!!!! ${1} 操 作 失 败 !!!!!!!!!!!!!!!!!!!!"
     echo

@@ -4,6 +4,8 @@ import bcluxs.DBDao.*;
 import bcluxs.service.BCService;
 import bcluxs.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,59 +28,24 @@ public class MemberController {
         this.bcService = bcService;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
+    @GetMapping("/query")
+    public String query() {
+        return "query";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/details")
+    public String details() {
+        return "details";
+    }
+
+    @GetMapping("/userlogin")
     public String login() {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String checkLogin(@RequestParam("login_name") String name, @RequestParam("password") String password, HttpSession session, ModelMap map, HttpServletRequest request) {
-        if (name.startsWith("生皮加工厂")) {
-            HideProducer hideProducer = dbService.getHideProducer(name);
-            if (hideProducer == null || !hideProducer.getPassword().equals(password)) {
-                return loginFail(map);
-            }
-            session.setAttribute("user", hideProducer);
-            return "redirect:/main";
-        }
-        if (name.startsWith("皮革加工厂")) {
-            LeatherProducer leatherProducer = dbService.getLeatherProducer(name);
-            if (leatherProducer == null || !leatherProducer.getPassword().equals(password)) {
-                return loginFail(map);
-            }
-            session.setAttribute("user", leatherProducer);
-            return "redirect:/main";
-        }
-        if (name.startsWith("商品加工厂")) {
-            Factory factory = dbService.getFactory(name);
-            if (factory == null || !factory.getPassword().equals(password)) {
-                return loginFail(map);
-            }
-            session.setAttribute("user", factory);
-            return "redirect:/main";
-        }
-        if (name.startsWith("零售商")) {
-            Retailer retailer = dbService.getRetailer(name);
-            if (retailer == null || !retailer.getPassword().equals(password)) {
-                return loginFail(map);
-            }
-            session.setAttribute("user", retailer);
-            return "redirect:/main";
-        }
-        if (name.equals("管理员")) {
-            if (!password.equals("123456")) {
-                return loginFail(map);
-            }
-            session.setAttribute("user", "Admin");
-            return "redirect:/main";
-        }
-
-        return loginFail(map);
+    @GetMapping("/talk")
+    public String talk() {
+        return "talk";
     }
 
     @GetMapping("/main")

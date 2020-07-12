@@ -175,36 +175,35 @@ public class FabricSDK {
             e.printStackTrace();
             return null;
         }
-        // 如果之前没被查询过才需要给orderer发送写账本请求，否则就不用发送了
-        if (!bcSoldCommodity.getQueried()) {
-            CompletableFuture<Exception> ex = transactionEventCompletableFuture.handle((event, exception) -> {
-                // 不成功就再发一次，再不成功就算了
-                if (exception != null || !event.isValid()) {
-                    assert exception != null;
-                    exception.printStackTrace();
-                    CompletableFuture<BlockEvent.TransactionEvent> newFuture = queryChannel.sendTransaction(responses);
-                    try {
-                        BlockEvent.TransactionEvent transactionEvent = newFuture.get();
-                        if (!transactionEvent.isValid()) {
-                            return new Exception("第二次仍旧失败: TxValidationCode为: " + transactionEvent.getValidationCode());
-                        }
-                    } catch (InterruptedException | ExecutionException e) {
-                        return e;
+        // 给orderer发送写账本请求
+        CompletableFuture<Exception> ex = transactionEventCompletableFuture.handle((event, exception) -> {
+            // 不成功就再发一次，再不成功就算了
+            if (exception != null || !event.isValid()) {
+                assert exception != null;
+                exception.printStackTrace();
+                CompletableFuture<BlockEvent.TransactionEvent> newFuture = queryChannel.sendTransaction(responses);
+                try {
+                    BlockEvent.TransactionEvent transactionEvent = newFuture.get();
+                    if (!transactionEvent.isValid()) {
+                        return new Exception("第二次仍旧失败: TxValidationCode为: " + transactionEvent.getValidationCode());
                     }
+                } catch (InterruptedException | ExecutionException e) {
+                    return e;
                 }
-                return null;
-            });
-            try {
-                Exception exception = ex.get();
-                if (exception != null) {
-                    exception.printStackTrace();
-                    return null;
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+            }
+            return null;
+        });
+        try {
+            Exception exception = ex.get();
+            if (exception != null) {
+                exception.printStackTrace();
                 return null;
             }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
         }
+
         return bcSoldCommodity;
     }
 

@@ -17,12 +17,17 @@ import (
 type MarketCC struct {
 }
 
-type Finish struct {
-	Factory         int    `json:"factory"`
-	TotalCount      int    `json:"total_count"`
-	TransactionTime int64  `json:"transaction_time"`
-	Unsold          int    `json:"unsold"`
-	SemiFinNum      string `json:"semi_fin_num"`
+type Commodity struct {
+	// 产品代工厂的编号
+	Factory int `json:"factory"`
+	// 该批次商品的数量，每卖掉一个就会减去1件
+	TotalCount int `json:"total_count"`
+	// 时间戳，工厂生产完毕交付给代理商的时间
+	TransactionTime int64 `json:"transaction_time"`
+	// 还未售出的商品件数
+	Unsold int `json:"unsold"`
+	// 该批次商品使用的是哪一批皮革
+	LeatherNum string `json:"leather_num"`
 }
 
 func (m MarketCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
@@ -55,7 +60,7 @@ func query(stub shim.ChaincodeStubInterface) peer.Response {
 		return fail("The Serial Number dose not exist")
 	}
 
-	commodity := new(Finish)
+	commodity := new(Commodity)
 	if err := json.Unmarshal(state, commodity); err != nil {
 		return fail("The data of this batch of Cargo is wrong")
 	}
@@ -67,11 +72,11 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 	_, args := stub.GetFunctionAndParameters()
 	if len(args) < 3 {
-		return fail("Wrong number of argument, expect 3")
+		return fail("Wrong number of argument, expect 4")
 	}
 
 	// 把输入的参数设置到Commodity结构体中
-	var commodity Finish
+	var commodity Commodity
 	for i := 0; i < 2; i++ {
 		arg := args[i]
 		res, ok := parse(arg)
@@ -88,7 +93,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	if len(args[2]) != 43 {
 		return fail("The serial number of the Leather is illegal")
 	}
-	commodity.SemiFinNum = args[2]
+	commodity.LeatherNum = args[2]
 
 	// 设置时间戳字段
 	timeStamp, err := stub.GetTxTimestamp()
@@ -109,7 +114,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 		}
 		allbyte = append(allbyte, buffer.Bytes()...)
 	}
-	allbyte = append(allbyte, []byte(commodity.SemiFinNum)...)
+	allbyte = append(allbyte, []byte(commodity.LeatherNum)...)
 
 	// 生成该批次商品的序列号
 	shaSerial := sha256.Sum256(allbyte)
@@ -150,7 +155,7 @@ func sell(stub shim.ChaincodeStubInterface) peer.Response {
 		return fail("The Serial Number dose not exist")
 	}
 
-	commodity := new(Finish)
+	commodity := new(Commodity)
 	if err := json.Unmarshal(state, commodity); err != nil {
 		return fail("The data of this batch of Cargo is wrong")
 	}

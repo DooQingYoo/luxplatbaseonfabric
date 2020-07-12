@@ -16,10 +16,16 @@ import (
 type QueryCC struct{}
 
 type SoldCommodity struct {
-	Retailer        int    `json:"retailer"`
-	TransactionTime int64  `json:"transaction_time"`
-	ComNum          string `json:"com_num"`
-	Queried         bool   `json:"queried"`
+	// 零售商的编号
+	Retailer int `json:"retailer"`
+	// 售出的时间戳
+	TransactionTime int64 `json:"transaction_time"`
+	// 该被售出商品所对应的货物批次
+	ComNum string `json:"com_num"`
+	// 是否被查询过
+	QueryTimes int `json:"query_times"`
+	// 上次查询的时间
+	LastQuery int64 `json:"last_query"`
 }
 
 func (q QueryCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
@@ -57,16 +63,23 @@ func query(stub shim.ChaincodeStubInterface) peer.Response {
 		return fail("The data of this batch of Cargo is wrong")
 	}
 
-	if !soldCommodity.Queried {
-		soldCommodity.Queried = true
-		data, err := json.Marshal(soldCommodity)
-		if err != nil {
-			return fail("Can't serialize to json" + err.Error())
-		}
-		err = stub.PutState(arg[0], data)
-		if err != nil {
-			return fail("Can't save data to ledger" + err.Error())
-		}
+	now, err := stub.GetTxTimestamp()
+	if err != nil {
+		return fail("Can't get time :" + err.Error())
+	}
+
+	newSoldCommodity := &SoldCommodity{
+		Retailer:        soldCommodity.Retailer,
+		TransactionTime: soldCommodity.TransactionTime,
+		ComNum:          soldCommodity.ComNum,
+		QueryTimes:      soldCommodity.QueryTimes + 1,
+		LastQuery:       now.Seconds,
+	}
+
+	newData, err := json.Marshal(newSoldCommodity)
+	err = stub.PutState(arg[0], newData)
+	if err != nil {
+		return fail("Can't save to ledger" + err.Error())
 	}
 
 	return shim.Success(state)
@@ -90,7 +103,8 @@ func sell(stub shim.ChaincodeStubInterface) peer.Response {
 	}
 	soldCom.Retailer = retailer
 	soldCom.ComNum = args[1]
-	soldCom.Queried = false
+	soldCom.QueryTimes = 0
+	soldCom.LastQuery = 0
 	timeStamp, err := stub.GetTxTimestamp()
 	if err != nil {
 		return fail("Can't get timestamp: " + err.Error())
@@ -98,19 +112,16 @@ func sell(stub shim.ChaincodeStubInterface) peer.Response {
 	soldCom.TransactionTime = timeStamp.Seconds
 
 	// 所有信息整合
+	var bufbyte []byte
 	var allbyte []byte
-	buffer := bytes.NewBuffer(make([]byte, 200))
+	buffer := bytes.NewBuffer(bufbyte)
 	err1 := binary.Write(buffer, binary.BigEndian, int64(soldCom.Retailer))
 	err2 := binary.Write(buffer, binary.BigEndian, soldCom.TransactionTime)
-	err3 := binary.Write(buffer, binary.BigEndian, soldCom.Queried)
 	if err1 != nil {
 		return fail("Can't transfer retailer into []byte" + err1.Error())
 	}
 	if err2 != nil {
 		return fail("Can't transfer timestamp into []byte" + err2.Error())
-	}
-	if err3 != nil {
-		return fail("Can't transfer queried into []byte" + err3.Error())
 	}
 	allbyte = append(allbyte, buffer.Bytes()...)
 	allbyte = append(allbyte, []byte(soldCom.ComNum)...)

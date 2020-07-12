@@ -15,27 +15,31 @@ import (
 )
 
 type DownStreamCC struct{}
-/*
-	皮革的糅制方式
-	0 - Chrome
-	1 - Vegitable
-	2 - Aluminum
-	3 - Oil
-*/
-/*
-	皮革使用的是那一层皮料，基本可以代表皮革的质量，同样为了方便就不用枚举了
-	0 - FullGrain Quality
-	1 - EmbossedGrain
-	2 - SplitSuede
-	3 - NubuckSuededGrain
-	4 - FibreLeather
-*/
-type SemiFin struct {
-	Process         int    `json:"process"`
-	Quality         int    `json:"quality"`
-	Producer        int    `json:"producer"`
-	TransactionTime int64  `json:"transaction_time"`
-	RawNum          string `json:"raw_num"`
+
+type Leather struct {
+	/*
+		皮革的糅制方式
+		0 - Chrome
+		1 - Vegitable
+		2 - Aluminum
+		3 - Oil
+	*/
+	Tanning int `json:"tanning"`
+	/*
+		皮革使用的是那一层皮料，基本可以代表皮革的质量，同样为了方便就不用枚举了
+		0 - FullGrain Layer
+		1 - EmbossedGrain
+		2 - SplitSuede
+		3 - NubuckSuededGrain
+		4 - FibreLeather
+	*/
+	Layer int `json:"layer"`
+	// 皮革的生产商，用编号来表示
+	Producer int `json:"producer"`
+	// 时间戳，代表皮革上链的时间，也就算是交易的时间
+	TransactionTime int64 `json:"transaction_time"`
+	// 代表了这批皮革是由哪一批生皮生产的
+	HideNum string `json:"hide_num"`
 }
 
 func (d DownStreamCC) Init(stub shim.ChaincodeStubInterface) peer.Response {
@@ -68,7 +72,7 @@ func query(stub shim.ChaincodeStubInterface) peer.Response {
 		return fail("The Serial Number dose not exist")
 	}
 
-	leather := new(SemiFin)
+	leather := new(Leather)
 	if err := json.Unmarshal(state, leather); err != nil {
 		return fail("The data of this batch of Cargo is wrong")
 	}
@@ -84,7 +88,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	}
 
 	// 把输入的参数设置到Leather结构体中
-	var leather SemiFin
+	var leather Leather
 	for i := 0; i < 3; i++ {
 		arg := args[i]
 		res, ok := parse(arg)
@@ -99,7 +103,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	if len(args[3]) != 43 {
 		return fail("The serial number of the Hide is illegal")
 	}
-	leather.RawNum = args[3]
+	leather.HideNum = args[3]
 
 	// 设置时间戳字段
 	timeStamp, err := stub.GetTxTimestamp()
@@ -119,7 +123,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 		}
 		allbyte = append(allbyte, buffer.Bytes()...)
 	}
-	allbyte = append(allbyte, []byte(leather.RawNum)...)
+	allbyte = append(allbyte, []byte(leather.HideNum)...)
 
 	// 生成该批次皮革的序列号
 	shaSerial := sha256.Sum256(allbyte)

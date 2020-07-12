@@ -18,35 +18,37 @@ import (
 上游供应链企业的通道链码。上游企业主要由生皮供应商和皮革供应商组成。
 存储的数据也就是生皮交易的所有信息了
 */
-type UpStreamCC struct{}
+type UpStreamCC struct {}
 
 // 代表生皮的属性结构体
-/**
-动物类型，为了方便就不用枚举了，直接用
-0 - Cow 牛
-1 - Goat 羊
-2 - Pig 猪
-3 - Deer 鹿
-4 - Fish 鱼
-5 - Snake 蛇
-6 - Ostrich 鸵鸟
-7 - Crocodile 鳄鱼
-*/
-/**
-生皮的防腐措施，同样为了方便不用枚举
-0 - 鲜皮
-1 - 冻鲜皮
-2 - 干皮
-3 - 冻干皮
-4 - 干腌皮
-5 - 湿腌皮
-6 - 浸酸皮
-7 - 照射皮
-*/
-type Raw struct {
-	RawType         int   `json:"raw_type"`
-	Quality         int   `json:"quality"`
-	Producer        int   `json:"producer"`
+type Hide struct {
+	/*
+	动物类型，为了方便就不用枚举了，直接用
+	0 - Cow 牛
+	1 - Goat 羊
+	2 - Pig 猪
+	3 - Deer 鹿
+	4 - Fish 鱼
+	5 - Snake 蛇
+	6 - Ostrich 鸵鸟
+	7 - Crocodile 鳄鱼
+	*/
+	AnimalType int `json:"animal_type"`
+	/*
+	生皮的防腐措施，同样为了方便不用枚举
+	0 - 鲜皮
+	1 - 冻鲜皮
+	2 - 干皮
+	3 - 冻干皮
+	4 - 干腌皮
+	5 - 湿腌皮
+	6 - 浸酸皮
+	7 - 照射皮
+	*/
+	ReserveType int `json:"reserve_type"`
+	// 生皮制造者，用编号表示
+	Producer int `json:"producer"`
+	// 这个时间戳指的是该份数据上链的时间，大体可以看做是生皮交易的时间
 	TransactionTime int64 `json:"transaction_time"`
 }
 
@@ -80,7 +82,7 @@ func query(stub shim.ChaincodeStubInterface) peer.Response {
 		return fail("The Serial Number dose not exist")
 	}
 
-	hide := new(Raw)
+	hide := new(Hide)
 	if err := json.Unmarshal(state, hide); err != nil {
 		return fail("The data of this batch of Cargo is wrong")
 	}
@@ -96,7 +98,7 @@ func invoke(stub shim.ChaincodeStubInterface) peer.Response {
 	}
 
 	// 把输入的参数设置到Hide结构体中
-	var hide Raw
+	var hide Hide
 	for i, arg := range args {
 		res, ok := parse(arg)
 		if !ok {

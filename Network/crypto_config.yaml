@@ -61,22 +61,6 @@ PeerOrgs:
       Start: 0
     Users:
       Count: 1
-  - Name: Agent1
-    Domain: Agent1
-    EnableNodeOUs: true
-    Template:
-      Count: 1
-      Start: 0
-    Users:
-      Count: 1
-  - Name: Agent2
-    Domain: Agent2
-    EnableNodeOUs: true
-    Template:
-      Count: 1
-      Start: 0
-    Users:
-      Count: 1
   - Name: Retailer1
     Domain: Retailer1
     EnableNodeOUs: true

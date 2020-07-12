@@ -52,48 +52,34 @@ Organizations:
     AnchorPeers:
       - Host: peer1.Facroty2
         Port: 19051
-  - &Agent1
-    Name: Agent1
-    ID: Agent1MSP
-    MSPDir: crypto-config/peerOrganizations/Agent1/msp
-    AnchorPeers:
-      - Host: peer0.Agent1
-        Port: 20051
-  - &Agent2
-    Name: Agent2
-    ID: Agent2MSP
-    MSPDir: crypto-config/peerOrganizations/Agent2/msp
-    AnchorPeers:
-      - Host: peer0.Agent2
-        Port: 21051
   - &Retailer1
     Name: Retailer1
     ID: Retailer1MSP
     MSPDir: crypto-config/peerOrganizations/Retailer1/msp
     AnchorPeers:
       - Host: peer0.Retailer1
-        Port: 22051
+        Port: 20051
   - &Retailer2
     Name: Retailer2
     ID: Retailer2MSP
     MSPDir: crypto-config/peerOrganizations/Retailer2/msp
     AnchorPeers:
       - Host: peer0.Retailer2
-        Port: 23051
+        Port: 21051
   - &Retailer3
     Name: Retailer3
     ID: Retailer3MSP
     MSPDir: crypto-config/peerOrganizations/Retailer3/msp
     AnchorPeers:
       - Host: peer0.Retailer3
-        Port: 24051
+        Port: 22051
   - &Retailer4
     Name: Retailer4
     ID: Retailer4MSP
     MSPDir: crypto-config/peerOrganizations/Retailer4/msp
     AnchorPeers:
       - Host: peer0.Retailer4
-        Port: 25051
+        Port: 23051
 
 Capabilities:
   Global: &ChannelCapabilities
@@ -112,7 +98,7 @@ Orderer: &OrdererDefault
   OrdererType: solo
   Addresses:
     - orderer.Brand:7050
-  BatchTimeout: 2s
+  BatchTimeout: 1s
   BatchSize:
     MaxMessageCount: 10
     AbsoluteMaxBytes: 99 MB
@@ -138,8 +124,6 @@ Profiles:
           - *Leather2
           - *Factory1
           - *Factory2
-          - *Agent1
-          - *Agent2
           - *Retailer1
           - *Retailer2
           - *Retailer3
@@ -176,8 +160,6 @@ Profiles:
         - *Brand
         - *Factory1
         - *Factory2
-        - *Agent1
-        - *Agent2
         - *Retailer1
         - *Retailer2
         - *Retailer3

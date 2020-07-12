@@ -1,9 +1,9 @@
 package bcluxs.controller;
 
 import bcluxs.DBDao.*;
-import bcluxs.service.BCService;
 import bcluxs.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +18,12 @@ import java.util.List;
 @Controller
 public class AdminController {
     private final DBService dbService;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public AdminController(DBService dbService, BCService bcService) {
+    public AdminController(DBService dbService, PasswordEncoder encoder) {
         this.dbService = dbService;
+        this.encoder = encoder;
     }
 
     @GetMapping("/allmembers")
@@ -68,6 +70,7 @@ public class AdminController {
     @GetMapping("/hide/{id}")
     public String hide(@PathVariable("id") Integer id, ModelMap map) {
         HideProducer hideProducer = dbService.getHideProducer(id);
+        hideProducer.setPassword("");
         map.addAttribute("member", hideProducer);
         map.addAttribute("type", "hide");
         return "modify";
@@ -76,6 +79,7 @@ public class AdminController {
     @GetMapping("/leather/{id}")
     public String leather(@PathVariable("id") Integer id, ModelMap map) {
         LeatherProducer leatherProducer = dbService.getLeatherProducer(id);
+        leatherProducer.setPassword("");
         map.addAttribute("member", leatherProducer);
         map.addAttribute("type", "leather");
         return "modify";
@@ -84,6 +88,7 @@ public class AdminController {
     @GetMapping("/factory/{id}")
     public String factory(@PathVariable("id") Integer id, ModelMap map) {
         Factory factory = dbService.getFactory(id);
+        factory.setPassword("");
         map.addAttribute("member", factory);
         map.addAttribute("type", "factory");
         return "modify";
@@ -92,6 +97,7 @@ public class AdminController {
     @GetMapping("/retailer/{id}")
     public String retailer(@PathVariable("id") Integer id, ModelMap map) {
         Retailer retailer = dbService.getRetailer(id);
+        retailer.setPassword("");
         map.addAttribute("member", retailer);
         map.addAttribute("type", "retailer");
         return "modify";
@@ -142,19 +148,19 @@ public class AdminController {
                            @RequestParam("password") String password, ModelMap map) {
         switch (memeberType) {
             case "hide":
-                HideProducer hide = new HideProducer(id, name, password, address, contact, page, legal, memb);
+                HideProducer hide = new HideProducer(id, name, encoder.encode(password), address, contact, page, legal, memb);
                 dbService.saveHideProducer(hide);
                 break;
             case "leather":
-                LeatherProducer leather = new LeatherProducer(id, name, password, address, contact, page, legal, memb);
+                LeatherProducer leather = new LeatherProducer(id, name, encoder.encode(password), address, contact, page, legal, memb);
                 dbService.saveLeatherProducer(leather);
                 break;
             case "factory":
-                Factory factory = new Factory(id, name, password, address, contact, page, legal, memb);
+                Factory factory = new Factory(id, name, encoder.encode(password), address, contact, page, legal, memb);
                 dbService.saveFactory(factory);
                 break;
             case "retailer":
-                Retailer retailer = new Retailer(id, name, password, address, contact, page, legal, memb);
+                Retailer retailer = new Retailer(id, name, encoder.encode(password), address, contact, page, legal, memb);
                 dbService.saveRetailer(retailer);
                 break;
             default:
@@ -179,9 +185,10 @@ public class AdminController {
         dbService.saveMessage(message);
         int count = (int) session.getAttribute("message");
         session.setAttribute("message", --count);
-        map.addAttribute("h1", message.getMessageType() == MessageType.MultiTimes ? "异常状况：多次查询" : message.getMessageType() == MessageType.VerifyNotPass ? "异常状况：校验错误" : "异常状况：数据丢失");
+        map.addAttribute("h1", message.getMessageType() == MessageType.MultiTimes ? "异常状况：多次查询" : "异常状况：出售异常");
         map.addAttribute("p1", "查询时间：" + DateFormat.getInstance().format(message.getTime()));
-        map.addAttribute("p2", "异常查询码：" + message.getSerialNum());
+        String pre = message.getMessageType() == MessageType.MultiTimes ? "异常查询码：" : "异常序列号：";
+        map.addAttribute("p2", pre + message.getSerialNum());
         return "message";
     }
 }

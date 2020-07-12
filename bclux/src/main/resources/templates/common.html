@@ -18,10 +18,10 @@
                 <li><a th:href="@{/}">品牌故事</a></li>
                 <li><a th:href="@{/}">产品</a></li>
                 <li><a th:href="@{/}">官方商城</a></li>
-                <li><a th:href="@{/}">真伪查询</a></li>
-                <li><a th:href="@{/}">FAQ</a></li>
+                <li><a th:href="@{/query}">真伪查询</a></li>
+                <li><a th:href="@{/talk}">FAQ</a></li>
             </ul>
-            <a th:if="${username==null}" th:href="@{/login}" class="navbar-right btn btn-primary navbar-btn">登录</a>
+            <a th:if="${username==null}" th:href="@{/userlogin}" class="navbar-right btn btn-primary navbar-btn">登录</a>
             <p th:if="${username!=null}" class="navbar-right navbar-text" th:text="${username}">用户名</p>
         </div>
     </div>
